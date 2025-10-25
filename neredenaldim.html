@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nereden Aldım? | Deneyimlerini Paylaş</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-500: #008894;
+      --primary-600: #00929f;
+      --primary-700: #007b8d;
+      --accent-500: #ef3b30;
+      --accent-600: #ef4d3e;
+      --accent-700: #ef1a26;
+      --amber-500: #f99a2d;
+      --amber-600: #fbb019;
+      --amber-700: #f4831c;
+      --green-500: #7fc343;
+      --green-600: #b4d036;
+      --green-700: #51b749;
+      --surface: #f7fbfc;
+      --card: #ffffff;
+      --text-900: #0a1f24;
+      --text-600: #3e5b62;
+      --text-400: #6d8a92;
+      --radius-lg: 1.5rem;
+      --shadow-soft: 0 20px 35px rgba(0, 139, 157, 0.12);
+      --shadow-card: 0 18px 30px rgba(14, 63, 74, 0.08);
+      --nav-height: 72px;
+    }
+
+    * {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    body {
+      background: var(--surface);
+      color: var(--text-900);
+      line-height: 1.6;
+    }
+
+    .navbar {
+      box-shadow: var(--shadow-card);
+      border-bottom: 1px solid rgba(0, 135, 149, 0.08);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .navbar.app-navbar {
+      border-radius: 24px;
+      margin: 0.75rem 1.25rem;
+    }
+
+    .brand-text {
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      color: var(--primary-700);
+    }
+
+    .brand-dot {
+      color: var(--accent-500);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+      border: none;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-light:hover, .btn-outline-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      padding: calc(var(--nav-height) + 5rem) 0 5rem;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(0, 136, 148, 0.16), transparent 55%),
+                  radial-gradient(circle at bottom left, rgba(81, 183, 73, 0.14), transparent 45%);
+      z-index: -1;
+    }
+
+    .hero-card {
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255,255,255,0.6);
+      padding: 2.5rem;
+    }
+
+    .hero-badge {
+      background: rgba(0, 136, 148, 0.1);
+      color: var(--primary-700);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 1.25rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(0, 136, 148, 0.12);
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--primary-700);
+    }
+
+    .play-btn {
+      width: 52px;
+      height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--accent-500);
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section-title {
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-400);
+      max-width: 540px;
+      margin: 0 auto 3rem;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      border: 1px solid rgba(0, 136, 148, 0.12);
+      box-shadow: var(--shadow-card);
+      height: 100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 40px rgba(0, 121, 137, 0.12);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .palette-primary { background: linear-gradient(135deg, var(--primary-700), var(--primary-600)); }
+    .palette-accent { background: linear-gradient(135deg, var(--accent-700), var(--accent-600)); }
+    .palette-amber { background: linear-gradient(135deg, var(--amber-700), var(--amber-600)); }
+    .palette-green { background: linear-gradient(135deg, var(--green-700), var(--green-600)); }
+
+    .step-card {
+      background: rgba(255,255,255,0.92);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(0,0,0,0.04);
+      box-shadow: var(--shadow-card);
+      height: 100%;
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      background: rgba(0, 136, 148, 0.14);
+      color: var(--primary-700);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .btn-soft-primary {
+      background: rgba(0, 136, 148, 0.12);
+      color: var(--primary-700);
+      border: 1px solid rgba(0, 136, 148, 0.2);
+      border-radius: 14px;
+      padding: 0.6rem 1.1rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-soft-primary:hover {
+      background: rgba(0, 146, 159, 0.18);
+      color: var(--primary-700);
+      border-color: rgba(0, 146, 159, 0.32);
+      transform: translateY(-1px);
+    }
+
+    .experience-card {
+      background: var(--card);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .experience-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 40px rgba(0, 139, 157, 0.16);
+    }
+
+    .experience-card.open-experience {
+      cursor: pointer;
+    }
+
+    .experience-card.open-experience:focus-visible {
+      outline: 3px solid rgba(0, 146, 159, 0.35);
+      outline-offset: 4px;
+    }
+
+    .experience-image {
+      aspect-ratio: 16 / 12;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .experience-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      height: 100%;
+    }
+
+    .experience-quick {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .experience-quick span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(0, 136, 148, 0.1);
+      color: var(--primary-700);
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.25rem 0.7rem;
+      font-size: 0.75rem;
+    }
+
+    .experience-quick span i {
+      font-size: 0.9rem;
+    }
+
+    .rating-pill {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .badge-light {
+      background: rgba(0, 136, 148, 0.12);
+      color: var(--primary-700);
+    }
+
+    .tag-pill {
+      background: rgba(0, 136, 148, 0.12);
+      color: var(--primary-700);
+      border-radius: 999px;
+      padding: 0.35rem 0.8rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .upload-card {
+      background: linear-gradient(165deg, rgba(0,136,148,0.94), rgba(0,146,159,0.86));
+      border-radius: 1.75rem;
+      color: #fff;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-card::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 65%);
+      opacity: 0.6;
+    }
+
+    .upload-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-floating label {
+      color: var(--text-400);
+    }
+
+    .testimonial-card {
+      background: var(--card);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(0, 136, 148, 0.12);
+      padding: 2rem;
+      height: 100%;
+      box-shadow: var(--shadow-card);
+    }
+
+    .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .accordion-button:not(.collapsed) {
+      background: rgba(0, 136, 148, 0.08);
+      color: var(--primary-700);
+    }
+
+    .cta-card {
+      background: linear-gradient(155deg, var(--primary-700), var(--accent-600));
+      color: #fff;
+      border-radius: 1.75rem;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .cta-card::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: rgba(255,255,255,0.14);
+      border-radius: 50%;
+      top: -80px;
+      right: -40px;
+    }
+
+    .cta-card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      bottom: -70px;
+      left: -50px;
+    }
+
+    footer {
+      background: #03161a;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .modal-experience .modal-content {
+      border: none;
+      border-radius: 26px;
+      box-shadow: 0 30px 80px rgba(4, 44, 54, 0.18);
+    }
+
+    .modal-experience .modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .modal-experience .modal-body {
+      padding-top: 0;
+    }
+
+    .modal-experience .modal-footer {
+      border-top: none;
+    }
+
+    .modal-experience .modal-title {
+      font-weight: 700;
+    }
+
+    .modal-media-wrapper {
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-media-wrapper::after {
+      content: "";
+      display: block;
+      padding-bottom: 125%;
+    }
+
+    .modal-media-wrapper > * {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-media-wrapper iframe {
+      border: 0;
+    }
+
+    .modal-media-wrapper video {
+      background: #000;
+    }
+
+    .modal-experience .modal-stats span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(0, 136, 148, 0.1);
+      color: var(--primary-700);
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .modal-interactions {
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
+      padding-top: 1.5rem;
+    }
+
+    .modal-interactions .btn {
+      font-weight: 600;
+    }
+
+    .modal-counts {
+      color: var(--text-400);
+      font-size: 0.85rem;
+    }
+
+    .modal-counts span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .modal-comments {
+      margin-top: 1.75rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      padding-top: 1.5rem;
+    }
+
+    .modal-comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .comment-item {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .comment-item img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(0, 136, 148, 0.2);
+    }
+
+    .comment-item strong {
+      font-weight: 700;
+      color: var(--text-900);
+    }
+
+    .comment-meta {
+      color: var(--text-400);
+      font-size: 0.8rem;
+    }
+
+    .app-shell {
+      width: 100%;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .mobile-topbar {
+      display: none;
+      max-width: 430px;
+      margin: 0.75rem auto 0.25rem;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      background: rgba(4, 38, 46, 0.9);
+      color: #fff;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mobile-topbar span:last-child {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .mobile-bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 420px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(4, 44, 54, 0.22);
+      padding: 0.45rem 0.75rem;
+      display: none;
+      z-index: 1090;
+    }
+
+    .mobile-bottom-nav a {
+      flex: 1;
+      text-decoration: none;
+      color: var(--text-400);
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.4rem 0.35rem;
+      border-radius: 14px;
+      transition: background 0.2s ease, color 0.2s ease;
+      font-weight: 600;
+    }
+
+    .mobile-bottom-nav a i {
+      font-size: 1.1rem;
+    }
+
+    .mobile-bottom-nav a.active,
+    .mobile-bottom-nav a:hover {
+      background: rgba(0, 136, 148, 0.12);
+      color: var(--primary-700);
+    }
+
+    @media (max-width: 991.98px) {
+      body {
+        background: linear-gradient(180deg, rgba(0, 24, 29, 0.95), rgba(0, 136, 148, 0.15) 55%, rgba(255, 255, 255, 1) 100%);
+        padding-bottom: 110px;
+      }
+      .app-shell {
+        max-width: 430px;
+        margin: 1rem auto 1.5rem;
+        border-radius: 32px;
+        background: #eef6f8;
+        box-shadow: 0 28px 60px rgba(4, 38, 46, 0.18);
+        overflow: hidden;
+      }
+      .app-shell .navbar {
+        border-radius: 32px 32px 0 0;
+        margin: 0;
+        box-shadow: none;
+        border-bottom: none;
+      }
+      .navbar.app-navbar {
+        margin: 0;
+        border-radius: 0;
+      }
+      .hero {
+        padding-top: calc(var(--nav-height) + 2.5rem);
+      }
+      .hero-card {
+        margin-top: 2rem;
+        border-radius: 2rem;
+      }
+      .hero-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+      .mobile-topbar {
+        display: flex;
+      }
+      .mobile-bottom-nav {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .hero-card {
+        padding: 2rem;
+      }
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+      .cta-card {
+        padding: 2.5rem 2rem;
+      }
+    }
+
+    @media (min-width: 992px) {
+      body {
+        background: linear-gradient(180deg, rgba(0, 136, 148, 0.06), rgba(255, 255, 255, 1) 65%);
+      }
+      .app-shell {
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .navbar.app-navbar {
+        margin: 0;
+        border-radius: 0;
+        box-shadow: var(--shadow-card);
+        border-bottom: 1px solid rgba(0, 135, 149, 0.08);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-topbar d-lg-none">
+    <span>09:41</span>
+    <span>
+      <i class="bi bi-reception-4"></i>
+      <i class="bi bi-wifi"></i>
+      <i class="bi bi-battery-full"></i>
+    </span>
+  </div>
+  <div class="app-shell">
+    <nav class="navbar navbar-expand-lg py-3 animate__animated animate__fadeInDown app-navbar">
+      <div class="container px-4">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+          <span class="d-inline-flex align-items-center justify-content-center rounded-circle p-2 palette-primary" style="width: 44px; height: 44px;">
+            <i class="bi bi-compass"></i>
+          </span>
+          <span class="brand-text">nereden<span class="brand-dot">.</span>aldım</span>
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+            <li class="nav-item"><a class="nav-link" href="#neden">Neden Biz?</a></li>
+            <li class="nav-item"><a class="nav-link" href="#adimlar">Nasıl Çalışır?</a></li>
+            <li class="nav-item"><a class="nav-link" href="#trend">Trend Deneyimler</a></li>
+            <li class="nav-item"><a class="nav-link" href="#sss">SSS</a></li>
+            <li class="nav-item"><a class="nav-link" href="#indir">Uygulama</a></li>
+            <li class="nav-item mt-3 mt-lg-0">
+              <a class="btn btn-primary px-4" href="#paylas">Deneyim Paylaş</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero" id="hero">
+      <div class="container px-4">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <div class="hero-card animate__animated animate__fadeInUp">
+              <span class="hero-badge">
+                <i class="bi bi-stars"></i>
+                Gerçek kullanıcı deneyimleri
+              </span>
+              <h1 class="display-5 fw-bold mt-3">Aldığın ürünleri paylaş, topluluğumuzla güveni inşa et.</h1>
+              <p class="text-muted mt-3">NeredenAldım, deneyimlerini fotoğraflarıyla birlikte paylaşmanı ve diğer kullanıcıların doğru kararı vermesine yardımcı olmanı sağlar. Soruları yanıtla, puan ver ve sesini toplulukla buluştur.</p>
+              <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+                <a class="btn btn-primary btn-lg px-4" href="#paylas">Hemen Deneyimini Yükle</a>
+                <a class="d-flex align-items-center gap-2 text-decoration-none text-dark" href="#introVideo">
+                  <span class="play-btn"><i class="bi bi-play-fill"></i></span>
+                  <span class="fw-semibold">60 saniyede tanı</span>
+                </a>
+              </div>
+              <div class="hero-stats mt-5">
+                <div class="stat-card">
+                  <span class="stat-value">+85K</span>
+                  <p class="mb-0 text-muted">Doğrulanmış ürün paylaşımı</p>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-value">%92</span>
+                  <p class="mb-0 text-muted">Deneyimlerden memnuniyet</p>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-value">48s</span>
+                  <p class="mb-0 text-muted">Ortalama soru yanıt süresi</p>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-value">7/24</span>
+                  <p class="mb-0 text-muted">Topluluk moderasyonu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="position-relative">
+              <div class="upload-card text-start text-lg-end animate__animated animate__fadeInRight animate__delay-1s">
+                <div class="d-inline-flex align-items-center gap-2 bg-white text-dark px-3 py-2 rounded-pill shadow-sm">
+                  <i class="bi bi-shield-check text-success"></i>
+                  <small>Kimliğin güvende</small>
+                </div>
+                <h2 class="fw-bold mt-4">"Bu kahve makinesini herkes soruyordu, deneyimimi paylaştım, şimdi sorular bana geliyor."</h2>
+                <p class="lead opacity-75">Güven veren deneyimler paylaş, benzer sorulara anında yanıt ver ve topluluğun yönünü değiştir.</p>
+                <div class="d-flex align-items-center gap-3 mt-4">
+                  <div>
+                    <div class="d-flex align-items-center gap-3">
+                      <img class="rounded-circle border border-2 border-light" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80" alt="Profil" width="56" height="56">
+                      <div>
+                        <p class="mb-0 fw-semibold">Merve K.</p>
+                        <small>Topluluk uzmanı</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white text-dark rounded-4 p-3 shadow-sm">
+                    <p class="text-muted small mb-2">Puanın</p>
+                    <div class="fw-bold fs-5 text-center text-success"><i class="bi bi-stars text-warning me-1"></i>4.9</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="py-5" id="neden">
+      <div class="container px-4">
+        <div class="text-center">
+          <span class="badge rounded-pill bg-white text-dark shadow-sm mb-3 px-3 py-2"><i class="bi bi-people me-2 text-success"></i>Topluluğun gücü</span>
+          <h2 class="section-title">Neden NeredenAldım?</h2>
+          <p class="section-subtitle">Her deneyimin gerçek insanlar tarafından, gerçek fotoğraflarla paylaşıldığı güvenilir bir platform. Sadece ürün değil, deneyimin ruhunu paylaşıyoruz.</p>
+        </div>
+        <div class="row g-4 mt-1">
+          <div class="col-md-6 col-xl-3">
+            <div class="feature-card animate__animated animate__fadeInUp">
+              <span class="feature-icon palette-primary"><i class="bi bi-camera-fill"></i></span>
+              <h5 class="fw-bold mt-3">Fotoğraflı doğrulama</h5>
+              <p class="text-muted mb-0">Ürünlerini gerçek fotoğraflarla paylaş, sahte yorumlara yer vermeden topluluğa ışık tut.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="feature-card animate__animated animate__fadeInUp animate__delay-1s">
+              <span class="feature-icon palette-accent"><i class="bi bi-chat-dots-fill"></i></span>
+              <h5 class="fw-bold mt-3">Soru &amp; cevap</h5>
+              <p class="text-muted mb-0">Ziyaretçiler merak ettiklerini sorar, deneyimi yaşayan kişiler doğrudan yanıtlar.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="feature-card animate__animated animate__fadeInUp animate__delay-2s">
+              <span class="feature-icon palette-amber"><i class="bi bi-graph-up-arrow"></i></span>
+              <h5 class="fw-bold mt-3">Puanlama sistemi</h5>
+              <p class="text-muted mb-0">Detaylı puanlama ile ürünlerin artılarını, eksilerini şeffaf şekilde görün.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="feature-card animate__animated animate__fadeInUp animate__delay-3s">
+              <span class="feature-icon palette-green"><i class="bi bi-award-fill"></i></span>
+              <h5 class="fw-bold mt-3">Topluluk ödülleri</h5>
+              <p class="text-muted mb-0">Sürekli paylaşım yapan üyeler özel rozete ve markalarla işbirliği fırsatına sahip olur.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="adimlar">
+      <div class="container px-4">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-5">
+            <h2 class="section-title">3 adımda deneyimini paylaş</h2>
+            <p class="text-muted">Fotoğraf yükle, deneyimini puanla ve topluluğa sun. Her detayın başka birinin satın alma kararını etkileyebilir.</p>
+            <div class="d-flex flex-column gap-4 mt-4">
+              <div class="step-card">
+                <div class="d-flex gap-3">
+                  <span class="step-number">1</span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Ürünü yükle ve doğrula</h6>
+                    <p class="text-muted mb-0">Faturayı fotoğraflayıp sisteme yükle, doğrulama ekibimiz ürünü onaylasın.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="d-flex gap-3">
+                  <span class="step-number">2</span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Deneyimini detaylandır</h6>
+                    <p class="text-muted mb-0">Kullanım süren, artıları/eksileri, fiyat bilgisi ve puanlamanı ekle.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="d-flex gap-3">
+                  <span class="step-number">3</span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Toplulukla etkileşim</h6>
+                    <p class="text-muted mb-0">Ziyaretçilerin sorularını uygulamadan yanıtla, güven puanını yükselt.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="row g-4">
+              <div class="col-sm-6">
+                <div class="experience-card">
+                  <img class="experience-image" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" alt="Kulaklık">
+                  <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge badge-light">Teknoloji</span>
+                      <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.8</span>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Noise Cancelling Kulaklık</h5>
+                    <p class="text-muted small mb-3">"İşe gidiş gelişlerimde aktif gürültü engelleme sayesinde dünyadan izole oluyorum."</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2">
+                        <img class="rounded-circle" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" alt="Avatar" width="40" height="40">
+                        <div>
+                          <small class="fw-semibold">Barış T.</small>
+                          <small class="text-muted d-block">12 yanıt</small>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary">Sor</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="experience-card">
+                  <img class="experience-image" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=800&q=80" alt="Kahve makinesi">
+                  <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge badge-light">Mutfak</span>
+                      <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.6</span>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Tam otomatik kahve makinesi</h5>
+                    <p class="text-muted small mb-3">"Evde barista standartlarında kahve hazırlıyorum. Bakımı için sorularınıza açığım."</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2">
+                        <img class="rounded-circle" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" alt="Avatar" width="40" height="40">
+                        <div>
+                          <small class="fw-semibold">Seda L.</small>
+                          <small class="text-muted d-block">8 yanıt</small>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary">Sor</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="experience-card">
+                  <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge badge-light">Yaşam</span>
+                      <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>5.0</span>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Akıllı hava temizleyici deneyimi</h5>
+                    <p class="text-muted mb-4">"Alerjik bünyem için aldığım hava temizleyici ile ilk haftadan itibaren evdeki hava kalitesinin arttığını hissettim. Telefon uygulaması üzerinden filtre takibini yapmak çok kolay."</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2">
+                        <img class="rounded-circle" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Avatar" width="44" height="44">
+                        <div>
+                          <small class="fw-semibold">Selin A.</small>
+                          <small class="text-muted d-block">"İçimi rahatlattı"</small>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-clock text-muted"></i>
+                        <small class="text-muted">2 saat önce</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-white" id="trend">
+      <div class="container px-4">
+        <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3 mb-4">
+          <div>
+            <h2 class="section-title">Toplulukta trend olan deneyimler</h2>
+            <p class="text-muted mb-0">Sezonun en çok konuşulan alışverişlerinden ilham al.</p>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-primary btn-sm"><i class="bi bi-filter me-1"></i>Filtrele</button>
+            <button class="btn btn-outline-primary btn-sm"><i class="bi bi-sliders2 me-1"></i>Kategoriler</button>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Robot Süpürge" data-category="Akıllı Ev" data-rating="4.7" data-quote="Günlük rutinden beni kurtardı. Halılarda performansı harika." data-description="Üç haftadır her gün otomatik olarak çalıştırıyorum. Halı ve sert zeminde eşit performans veriyor, mobil uygulamasından detaylı harita çıkarabiliyorum." data-tags="Akıllı haritalama|Halılarda yüksek performans|Sessiz çalışma modu" data-stats="1.2K beğeni|19 soru|Teslimat 2 günde" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=120&q=80" data-user="Elif Demir" data-role="Akıllı Ev Uzmanı" data-time="2 saat önce" data-counts="1.2K Beğeni|19 Soru|86 Favori" data-comments="Ayşe::Ürün Avcısı::Ben de aynı modeli kullanıyorum, sessizliği harika!::1 saat önce::https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80||Selim::Tekno Blogger::Uygulama haritalaması detaylıymış, deneyimin için teşekkürler!::3 saat önce::https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?auto=format&fit=crop&w=120&q=80||Gamze::Yeni Üye::Şarj süresi nasıl, tüm evi tek seferde tamamlıyor mu?::Dün::https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Robot süpürge">
+              <div class="experience-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge badge-light">Akıllı Ev</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.7</span>
+                </div>
+                <div>
+                  <h6 class="fw-semibold mb-1">Robot Süpürge</h6>
+                  <p class="text-muted small mb-0">"Günlük rutinden beni kurtardı. Halılarda performansı harika."</p>
+                </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>1.2K</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>19</span>
+                  <span><i class="bi bi-bookmark-heart text-warning"></i>86</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="rounded-circle" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=120&q=80" alt="Elif" width="40" height="40">
+                    <div>
+                      <small class="fw-semibold text-dark d-block">Elif D.</small>
+                      <small class="text-muted">Akıllı Ev Uzmanı</small>
+                    </div>
+                  </div>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Akıllı Saat" data-category="Sağlık" data-rating="4.9" data-quote="Uyku takibi verileri sayesinde kendimi daha iyi tanıyorum." data-description="Stresi ve nabzı sürekli ölçüyor, egzersiz sırasında otomatik modları devreye sokuyor. Uyku kalitesi raporları her sabah telefonuma düşüyor." data-tags="Detaylı uyku analizi|Sürekli nabız takibi|Uzun pil ömrü" data-stats="980 beğeni|25 soru|3 paylaşım" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" data-user="Barış Tan" data-role="Wellness Coach" data-time="Dün" data-counts="980 Beğeni|25 Soru|3 Paylaşım" data-comments="Derya::Koşu Kulübü::Antrenman modları arasında yüzme var mı?::2 saat önce::https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80||Kenan::Biohack Uzmanı::Pil performansını paylaştığın için teşekkürler, çok yardımcı oldu.::Dün::https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=120&q=80||Mira::Uyku Koçu::Uyku raporlarını telefonla paylaşabiliyor musun?::3 gün önce::https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=120&q=80">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=800&q=80" alt="Akıllı saat">
+              <div class="experience-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge badge-light">Sağlık</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.9</span>
+                </div>
+                <div>
+                  <h6 class="fw-semibold mb-1">Akıllı Saat</h6>
+                  <p class="text-muted small mb-0">"Uyku takibi verileri sayesinde kendimi daha iyi tanıyorum."</p>
+                </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>980</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>25</span>
+                  <span><i class="bi bi-share-fill text-success"></i>3</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="rounded-circle" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" alt="Barış" width="40" height="40">
+                    <div>
+                      <small class="fw-semibold text-dark d-block">Barış T.</small>
+                      <small class="text-muted">Wellness Coach</small>
+                    </div>
+                  </div>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Espresso Makinesi" data-category="Mutfak" data-rating="4.6" data-quote="Süt köpürtücüsü barista standardında." data-description="Bu modelle latte art denemeleri yapıyorum. 25 saniyelik shot süresi çok tutarlı, temizliği de kolay. Programlanabilir modlar sabah rutinimi hızlandırdı." data-tags="Barista seviyesi köpük|Programlanabilir shot|Kolay temizlik" data-stats="760 beğeni|14 soru|86 favori" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=120&q=80" data-user="Seda Lale" data-role="Kahve Sever" data-time="3 gün önce" data-counts="760 Beğeni|14 Soru|86 Favori" data-comments="Onur::Kafe Sahibi::Latte art için süt sıcaklığını nasıl ayarlıyorsun?::5 saat önce::https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80||Melis::Tatlı Şefi::Temizlik için hangi ürünleri önerirsin?::2 gün önce::https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=120&q=80||Burak::Ev Baristası::Kahve çekirdeği önerilerini bekliyorum.::4 gün önce::https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=800&q=80" alt="Kahve makinesi">
+              <div class="experience-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge badge-light">Mutfak</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.6</span>
+                </div>
+                <div>
+                  <h6 class="fw-semibold mb-1">Espresso Makinesi</h6>
+                  <p class="text-muted small mb-0">"Süt köpürtücüsü barista standardında."</p>
+                </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>760</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>14</span>
+                  <span><i class="bi bi-bookmark-check text-success"></i>86</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="rounded-circle" src="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=120&q=80" alt="Seda" width="40" height="40">
+                    <div>
+                      <small class="fw-semibold text-dark d-block">Seda L.</small>
+                      <small class="text-muted">Kahve Sever</small>
+                    </div>
+                  </div>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Karbon Yol Bisikleti" data-category="Aktif Yaşam" data-rating="4.8" data-quote="Hafifliği ve aerodinamiği ile şehirde süzülmek gibi." data-description="Yokuşlarda güç harcamadan hızlanıyorum. Karbon kadro titreşimleri minimize ediyor, Shimano seti vites geçişlerini tereyağı gibi yapıyor." data-tags="4.9 kg kadro|Shimano Ultegra set|Hızlı tırmanış" data-stats="1.5K beğeni|32 soru|Topluluk önerisi" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1518540632084-3b80cd1c1e5b?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1518540632084-3b80cd1c1e5b?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" data-user="Murat Kaya" data-role="Sürüş Tutkunu" data-time="1 hafta önce" data-counts="1.5K Beğeni|32 Soru|124 Kaydetme" data-comments="İpek::Şehir Bisikletçisi::Rüzgar direnci düşük hissediliyor mu?::12 saat önce::https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=120&q=80||Umut::Triatlet::Tırmanışlarda hangi dişli kombinasyonunu kullanıyorsun?::2 gün önce::https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80||Kerem::Mekanik Uzmanı::Bakım için önerdiğin bir servis var mı?::Geçen hafta::https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1518540632084-3b80cd1c1e5b?auto=format&fit=crop&w=800&q=80" alt="Karbon yol bisikleti">
+              <div class="experience-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge badge-light">Aktif Yaşam</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.8</span>
+                </div>
+                <div>
+                  <h6 class="fw-semibold mb-1">Karbon Yol Bisikleti</h6>
+                  <p class="text-muted small mb-0">"Hafifliği ve aerodinamiği ile şehirde süzülmek gibi."</p>
+                </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>1.5K</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>32</span>
+                  <span><i class="bi bi-bookmark-star text-warning"></i>124</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="rounded-circle" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" alt="Murat" width="40" height="40">
+                    <div>
+                      <small class="fw-semibold text-dark d-block">Murat K.</small>
+                      <small class="text-muted">Sürüş Tutkunu</small>
+                    </div>
+                  </div>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="4K Akıllı Projektör" data-category="Eğlence" data-rating="4.9" data-quote="Sinemayı salonuma taşıdım, renkler capcanlı." data-description="Wi-Fi 6 desteği sayesinde içerikler anında akıyor. Otomatik keystone düzeltmesi ile kurulum dakikalar sürdü." data-tags="Otomatik odaklama|Sessiz fan|Dolby Atmos desteği" data-stats="1.1K beğeni|42 yorum|12 paylaşım" data-media-type="embed" data-media-src="https://www.youtube.com/embed/S14uVKcCuIE?rel=0&modestbranding=1" data-image="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80" data-user="Merve Kaya" data-role="Sinema Tutkunu" data-time="3 gün önce" data-counts="1.1K Beğeni|42 Yorum|12 Paylaşım" data-comments="Serkan::Ev Sineması Uzmanı::Karanlık olmayan ortamda parlaklık yeterli mi?::4 saat önce::https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80||Nil::Film Kulübü::Netflix ve Disney+ tuşları kumandada hazır mı?::1 gün önce::https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80||Tolga::Ses Mühendisi::Harici ses sistemi bağlarken gecikme yaşadın mı?::5 gün önce::https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=120&q=80">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" alt="Akıllı projektör">
+              <div class="experience-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge badge-light">Eğlence</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.9</span>
+                </div>
+                <div>
+                  <h6 class="fw-semibold mb-1">4K Akıllı Projektör</h6>
+                  <p class="text-muted small mb-0">"Sinemayı salonuma taşıdım, renkler capcanlı."</p>
+                </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>1.1K</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>42</span>
+                  <span><i class="bi bi-camera-video-fill text-success"></i>4K</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="rounded-circle" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80" alt="Merve" width="40" height="40">
+                    <div>
+                      <small class="fw-semibold text-dark d-block">Merve K.</small>
+                      <small class="text-muted">Sinema Tutkunu</small>
+                    </div>
+                  </div>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Aksiyon Kamerası" data-category="Outdoor" data-rating="4.8" data-quote="Titreşim engelleme sayesinde sarsıntısız kayıt alıyorum." data-description="HyperSmooth sabitleme kayak ve dalış videolarımı sinema tadında yapıyor. 5 metreye kadar kılıfsız su geçirmezlik çok pratik." data-tags="5K60 kayıt|HyperSmooth 6.0|Su geçirmez" data-stats="864 beğeni|18 yorum|34 favori" data-media-type="video" data-media-src="https://cdn.coverr.co/videos/coverr-extreme-mountain-biking-1585316803?download=1" data-media-poster="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" data-user="Deniz Arslan" data-role="Macera Rehberi" data-time="5 gün önce" data-counts="864 Beğeni|18 Yorum|34 Favori" data-comments="Ufuk::Dağ Bisikletçisi::Gece çekimlerinde performansı nasıl?::6 saat önce::https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80||Lale::Dalış Eğitmeni::Su altı modunda renk düzeltmesini açık mı kullanıyorsun?::2 gün önce::https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80||Can::Drone Pilot::Kask montajı için önerdiğin aksesuar var mı?::1 hafta önce::https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="Aksiyon kamerası">
+              <div class="experience-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge badge-light">Outdoor</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.8</span>
+                </div>
+                <div>
+                  <h6 class="fw-semibold mb-1">Aksiyon Kamerası</h6>
+                  <p class="text-muted small mb-0">"Titreşim engelleme sayesinde sarsıntısız kayıt alıyorum."</p>
+                </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>864</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>18</span>
+                  <span><i class="bi bi-collection-play text-success"></i>5K60</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="rounded-circle" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Deniz" width="40" height="40">
+                    <div>
+                      <small class="fw-semibold text-dark d-block">Deniz A.</small>
+                      <small class="text-muted">Macera Rehberi</small>
+                    </div>
+                  </div>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="paylas">
+      <div class="container px-4">
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="upload-card text-white h-100">
+              <div class="d-inline-flex align-items-center gap-2 bg-white text-dark px-3 py-2 rounded-pill shadow-sm">
+                <i class="bi bi-lightning-charge-fill text-warning"></i>
+                <small>İlk paylaşımına özel sürpriz</small>
+              </div>
+              <h2 class="fw-bold mt-4">Deneyimini şimdi yükle, toplulukla bağ kur.</h2>
+              <p class="lead opacity-75">Fotoğraflarını sürükle bırak, detayları ekle ve dakikalar içinde binlerce kişiye ulaş.</p>
+              <ul class="list-unstyled d-flex flex-column gap-3 mt-4">
+                <li class="d-flex gap-3 align-items-start">
+                  <span class="d-inline-flex palette-amber text-dark rounded-3 p-2"><i class="bi bi-upload"></i></span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Kolay yükleme</h6>
+                    <p class="mb-0">Fotoğraflarını sürükleyip bırakabilir veya kamera ile çekebilirsin.</p>
+                  </div>
+                </li>
+                <li class="d-flex gap-3 align-items-start">
+                  <span class="d-inline-flex palette-accent rounded-3 p-2"><i class="bi bi-chat-heart"></i></span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Sevgi kazan</h6>
+                    <p class="mb-0">Topluluk etkileşimleri puanına yansır, özel rozetler kazanırsın.</p>
+                  </div>
+                </li>
+                <li class="d-flex gap-3 align-items-start">
+                  <span class="d-inline-flex palette-green rounded-3 p-2"><i class="bi bi-badge-ad"></i></span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Markalarla buluş</h6>
+                    <p class="mb-0">Popüler deneyimler sponsorlu içerik fırsatlarına açılır.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-white rounded-4 p-4 p-lg-5 shadow-lg">
+              <h4 class="fw-bold mb-3">Paylaşım formu</h4>
+              <p class="text-muted mb-4">Fotoğraflarını ekle, deneyimini özetle ve puanla. Topluluk seni bekliyor!</p>
+              <form class="needs-validation" novalidate>
+                <div class="mb-3">
+                  <label for="productName" class="form-label fw-semibold">Ürün adı</label>
+                  <input type="text" class="form-control" id="productName" placeholder="Örn. Dyson V15 Süpürge" required>
+                  <div class="invalid-feedback">Lütfen ürün adını gir.</div>
+                </div>
+                <div class="row g-3">
+                  <div class="col-sm-6">
+                    <label for="category" class="form-label fw-semibold">Kategori</label>
+                    <select class="form-select" id="category" required>
+                      <option value="" selected disabled>Kategori seç</option>
+                      <option>Teknoloji</option>
+                      <option>Mutfak</option>
+                      <option>Yaşam</option>
+                      <option>Aktif Yaşam</option>
+                      <option>Moda</option>
+                    </select>
+                    <div class="invalid-feedback">Kategori seç.</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="rating" class="form-label fw-semibold">Puan</label>
+                    <input type="range" class="form-range" min="1" max="5" step="0.5" id="rating">
+                    <div class="d-flex justify-content-between small text-muted">
+                      <span>1</span><span>5</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-floating mt-3">
+                  <textarea class="form-control" placeholder="Deneyimini yaz" id="experience" style="height: 140px" required></textarea>
+                  <label for="experience">Deneyimini anlat</label>
+                  <div class="invalid-feedback">Lütfen deneyimini paylaş.</div>
+                </div>
+                <div class="mt-3">
+                  <label for="photos" class="form-label fw-semibold">Fotoğraflar</label>
+                  <input class="form-control" type="file" id="photos" multiple accept="image/*">
+                  <small class="text-muted">En az 2, en fazla 8 fotoğraf yükle.</small>
+                </div>
+                <div class="form-check mt-4">
+                  <input class="form-check-input" type="checkbox" value="" id="privacy" required>
+                  <label class="form-check-label" for="privacy">
+                    Topluluk kurallarını okudum, onaylıyorum.
+                  </label>
+                  <div class="invalid-feedback">Paylaşmadan önce onaylamalısın.</div>
+                </div>
+                <button class="btn btn-primary w-100 mt-4" type="submit">Deneyimi paylaş</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-white">
+      <div class="container px-4">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Topluluk ne diyor?</h2>
+          <p class="section-subtitle">NeredenAldım, alışveriş deneyimini paylaşanların güvenilir buluşma noktası.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center gap-3">
+                <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80" alt="Avatar">
+                <div>
+                  <h6 class="fw-semibold mb-0">Merve K.</h6>
+                  <small class="text-muted">Güvenilir deneyim uzmanı</small>
+                </div>
+              </div>
+              <p class="mt-3 text-muted">"Ürünlerin gerçek kullanıcı yorumlarını okumak istiyorsanız doğru yerdesiniz. NeredenAldım sayesinde yeni ürünler keşfettim ve sorularım anında cevaplandı."</p>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-heart-fill text-danger"></i>
+                <small class="text-muted">1.2K beğeni</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center gap-3">
+                <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" alt="Avatar">
+                <div>
+                  <h6 class="fw-semibold mb-0">Barış T.</h6>
+                  <small class="text-muted">Tech influencer</small>
+                </div>
+              </div>
+              <p class="mt-3 text-muted">"Deneyim paylaşımı yaparken fotoğraf ve video eklemek çok pratik. Ziyaretçilerle sorunsuz iletişim kuruyorum, güven puanım sürekli artıyor."</p>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-chat-left-dots-fill text-primary"></i>
+                <small class="text-muted">37 soru yanıtladı</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center gap-3">
+                <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" alt="Avatar">
+                <div>
+                  <h6 class="fw-semibold mb-0">Seda L.</h6>
+                  <small class="text-muted">Kahve sever</small>
+                </div>
+              </div>
+              <p class="mt-3 text-muted">"İlk paylaşımımda topluluğun ilgisi beni şaşırttı. NeredenAldım sayesinde kahve makinemi daha bilinçli seçtim."</p>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-award-fill text-success"></i>
+                <small class="text-muted">Topluluk lideri</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="sss">
+      <div class="container px-4">
+        <div class="row g-4">
+          <div class="col-lg-5">
+            <h2 class="section-title">Sık sorulan sorular</h2>
+            <p class="text-muted">NeredenAldım topluluğuna katılmadan önce aklına takılabilecek soruları yanıtladık. Daha fazlası için canlı destek ekibimizle görüşebilirsin.</p>
+            <div class="d-flex align-items-center gap-3 mt-4">
+              <div class="d-inline-flex palette-primary text-white rounded-3 p-3">
+                <i class="bi bi-headset fs-4"></i>
+              </div>
+              <div>
+                <p class="mb-0 fw-semibold">Canlı destek</p>
+                <small class="text-muted">Hafta içi 09:00-22:00 arası</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="accordion" id="faqAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq1">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                    Deneyim paylaşmak ücretli mi?
+                  </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Hayır, deneyim paylaşmak tamamen ücretsiz. Sadece topluluk kurallarına uygun, gerçek deneyimler kabul edilir.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq2">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                    Fotoğraflarım nasıl doğrulanıyor?
+                  </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Yapay zekâ destekli görsel doğrulama ve moderatör ekibimiz sayesinde sahte içerik tespit edilerek topluluk güvenliği sağlanır.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq3">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                    Kullanıcılarla nasıl iletişim kurarım?
+                  </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Deneyimin altına gelen soruları uygulama içi sohbetten yanıtlayabilir, favori cevaplarını öne çıkarabilirsin.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq4">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                    Güven puanı nedir?
+                  </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Güven puanı, deneyimlerinin doğruluğu, yanıtların hızı ve topluluk etkileşimlerine göre hesaplanır. Puanın arttıkça toplulukta öne çıkarsın.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-white" id="indir">
+      <div class="container px-4">
+        <div class="cta-card text-center text-lg-start">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <h2 class="fw-bold">NeredenAldım uygulaması çok yakında mağazalarda!</h2>
+              <p class="mb-0 opacity-75">Şimdi kayıt ol, beta sürümüne erken erişim kazan. PWA desteğiyle telefonuna kur, alışveriş deneyimini her yerde paylaş.</p>
+            </div>
+            <div class="col-lg-5 text-lg-end">
+              <div class="d-flex flex-column flex-sm-row justify-content-end gap-3">
+                <a href="#" class="btn btn-outline-light px-4 py-3"><i class="bi bi-apple me-2"></i>App Store</a>
+                <a href="#" class="btn btn-outline-light px-4 py-3"><i class="bi bi-google-play me-2"></i>Google Play</a>
+                <a href="#" class="btn btn-outline-light px-4 py-3"><i class="bi bi-browser-chrome me-2"></i>PWA Kur</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="pt-5 pb-4">
+      <div class="container px-4">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="d-inline-flex align-items-center justify-content-center rounded-circle p-2 palette-primary" style="width: 44px; height: 44px;">
+                <i class="bi bi-compass"></i>
+              </span>
+              <span class="brand-text text-white">nereden<span class="brand-dot">.</span>aldım</span>
+            </div>
+            <p class="small mb-3">NeredenAldım topluluğu, alışveriş deneyimlerini güvenle paylaşıp soru cevaplayabileceğin yeni nesil sosyal platform.</p>
+            <div class="d-flex gap-3">
+              <a class="text-white-50" href="#"><i class="bi bi-instagram"></i></a>
+              <a class="text-white-50" href="#"><i class="bi bi-twitter-x"></i></a>
+              <a class="text-white-50" href="#"><i class="bi bi-youtube"></i></a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h6 class="text-white fw-semibold mb-3">Keşfet</h6>
+            <ul class="list-unstyled text-white-50 d-grid gap-2">
+              <li><a class="text-white-50 text-decoration-none" href="#trend">Trend deneyimler</a></li>
+              <li><a class="text-white-50 text-decoration-none" href="#paylas">Deneyim paylaş</a></li>
+              <li><a class="text-white-50 text-decoration-none" href="#sss">Yardım merkezi</a></li>
+              <li><a class="text-white-50 text-decoration-none" href="#indir">Uygulama</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6 class="text-white fw-semibold mb-3">Bültenimize katıl</h6>
+            <p class="small text-white-50">Yeni kampanyalardan ve topluluk etkinliklerinden ilk sen haberdar ol.</p>
+            <form class="d-flex gap-2">
+              <input type="email" class="form-control" placeholder="E-posta adresin">
+              <button class="btn btn-primary" type="submit"><i class="bi bi-send"></i></button>
+            </form>
+          </div>
+        </div>
+        <hr class="border-light border-opacity-10 my-4">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-white-50 gap-2">
+          <small>© 2024 NeredenAldım. Tüm hakları saklıdır.</small>
+          <div class="d-flex gap-3 small">
+            <a class="text-white-50 text-decoration-none" href="#">Gizlilik</a>
+            <a class="text-white-50 text-decoration-none" href="#">Kullanım Koşulları</a>
+            <a class="text-white-50 text-decoration-none" href="#">Çerez Politikası</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal fade modal-experience" id="experienceModal" tabindex="-1" aria-labelledby="experienceModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div>
+              <span class="badge badge-light" id="experienceModalCategory">Kategori</span>
+              <h5 class="modal-title mt-2" id="experienceModalLabel">Deneyim Başlığı</h5>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row g-4 align-items-start">
+              <div class="col-lg-5">
+                <div class="modal-media-wrapper shadow-sm" id="experienceModalMedia"></div>
+                <div class="d-flex align-items-center gap-3 mt-3">
+                  <img id="experienceModalAvatar" src="" alt="Kullanıcı" class="rounded-circle border border-2 border-light" width="56" height="56">
+                  <div>
+                    <p class="fw-semibold mb-0" id="experienceModalUser">Kullanıcı Adı</p>
+                    <small class="text-muted" id="experienceModalRole">Uzmanlık</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7">
+                <div class="d-flex align-items-center flex-wrap gap-3 mb-3">
+                  <span class="rating-pill" id="experienceModalRating"><i class="bi bi-star-fill text-warning"></i>5.0</span>
+                  <small class="text-muted" id="experienceModalTime">Şimdi</small>
+                </div>
+                <p class="fst-italic text-muted" id="experienceModalQuote">"Deneyim alıntısı burada."</p>
+                <p class="text-muted" id="experienceModalDescription">Deneyimin detayları burada yer alacak.</p>
+                <div class="d-flex flex-wrap gap-2 mt-3" id="experienceModalTags"></div>
+                <div class="modal-stats d-flex flex-wrap gap-2 mt-4" id="experienceModalStats"></div>
+                <div class="modal-interactions mt-4">
+                  <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-soft-primary btn-sm"><i class="bi bi-hand-thumbs-up-fill"></i> Beğen</button>
+                    <button type="button" class="btn btn-soft-primary btn-sm"><i class="bi bi-bookmark-plus"></i> Kaydet</button>
+                    <button type="button" class="btn btn-soft-primary btn-sm"><i class="bi bi-share-fill"></i> Paylaş</button>
+                  </div>
+                  <div class="modal-counts d-flex flex-wrap gap-3 mt-3" id="experienceModalCounts"></div>
+                </div>
+                <div class="modal-comments">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <h6 class="fw-semibold mb-0">Yorumlar</h6>
+                    <button type="button" class="btn btn-link btn-sm text-decoration-none text-primary"><i class="bi bi-chat-text"></i> Yorum yaz</button>
+                  </div>
+                  <div class="modal-comments-list mt-3" id="experienceModalComments"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-2 text-muted small">
+              <i class="bi bi-shield-check text-success"></i>
+              <span>Bu paylaşım topluluk doğrulamasından geçti.</span>
+            </div>
+            <a class="btn btn-primary" href="#paylas">Sen de paylaş</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-bottom-nav d-lg-none">
+    <a href="#hero" class="active"><i class="bi bi-house-door-fill"></i><span>Ana sayfa</span></a>
+    <a href="#trend"><i class="bi bi-fire"></i><span>Trend</span></a>
+    <a href="#paylas"><i class="bi bi-plus-circle-fill"></i><span>Paylaş</span></a>
+    <a href="#sss"><i class="bi bi-question-circle-fill"></i><span>Yardım</span></a>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (() => {
+      const forms = document.querySelectorAll('.needs-validation');
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+
+    const experienceModalEl = document.getElementById('experienceModal');
+    let modalTrigger = null;
+    if (experienceModalEl) {
+      experienceModalEl.addEventListener('show.bs.modal', event => {
+        const trigger = event.relatedTarget || modalTrigger;
+        if (!trigger) {
+          return;
+        }
+
+        const dataset = trigger.dataset;
+        const setText = (selector, value, toggleVisibility = false) => {
+          const el = experienceModalEl.querySelector(selector);
+          if (el) {
+            el.textContent = value || '';
+            if (toggleVisibility) {
+              el.style.display = value ? '' : 'none';
+            }
+          }
+        };
+
+        setText('#experienceModalLabel', dataset.title || 'Paylaşım detayları');
+        setText('#experienceModalCategory', dataset.category || 'Topluluk');
+        setText('#experienceModalQuote', dataset.quote || '', true);
+        setText('#experienceModalDescription', dataset.description || '', true);
+        setText('#experienceModalUser', dataset.user || 'Topluluk üyesi');
+        setText('#experienceModalRole', dataset.role || '', true);
+        setText('#experienceModalTime', dataset.time || '', true);
+
+        const ratingEl = experienceModalEl.querySelector('#experienceModalRating');
+        if (ratingEl) {
+          ratingEl.innerHTML = `<i class="bi bi-star-fill text-warning"></i>${dataset.rating || '-'}`;
+        }
+
+        const mediaContainer = experienceModalEl.querySelector('#experienceModalMedia');
+        if (mediaContainer) {
+          mediaContainer.innerHTML = '';
+          const mediaType = (dataset.mediaType || '').toLowerCase();
+          const mediaSrc = dataset.mediaSrc || dataset.image || '';
+          if (mediaType === 'video' && mediaSrc) {
+            const video = document.createElement('video');
+            video.controls = true;
+            video.playsInline = true;
+            video.src = mediaSrc;
+            if (dataset.mediaPoster) {
+              video.poster = dataset.mediaPoster;
+            }
+            mediaContainer.appendChild(video);
+          } else if ((mediaType === 'embed' || mediaType === 'youtube') && mediaSrc) {
+            const iframe = document.createElement('iframe');
+            iframe.src = mediaSrc;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.allowFullscreen = true;
+            mediaContainer.appendChild(iframe);
+          } else if (mediaSrc) {
+            const img = document.createElement('img');
+            img.src = mediaSrc;
+            img.alt = dataset.title ? `${dataset.title} görseli` : 'Deneyim görseli';
+            mediaContainer.appendChild(img);
+          }
+        }
+
+        const avatarEl = experienceModalEl.querySelector('#experienceModalAvatar');
+        if (avatarEl) {
+          avatarEl.src = dataset.avatar || '';
+          avatarEl.alt = dataset.user || 'Kullanıcı';
+        }
+
+        const tagsContainer = experienceModalEl.querySelector('#experienceModalTags');
+        if (tagsContainer) {
+          tagsContainer.innerHTML = '';
+          const tags = (dataset.tags || '').split('|').map(tag => tag.trim()).filter(Boolean);
+          if (tags.length) {
+            tagsContainer.style.display = '';
+            tags.forEach(tag => {
+              const span = document.createElement('span');
+              span.className = 'tag-pill';
+              span.innerHTML = `<i class="bi bi-check2-circle"></i>${tag}`;
+              tagsContainer.appendChild(span);
+            });
+          } else {
+            tagsContainer.style.display = 'none';
+          }
+        }
+
+        const statsContainer = experienceModalEl.querySelector('#experienceModalStats');
+        if (statsContainer) {
+          statsContainer.innerHTML = '';
+          const stats = (dataset.stats || '').split('|').map(stat => stat.trim()).filter(Boolean);
+          if (stats.length) {
+            statsContainer.style.display = '';
+            stats.forEach(stat => {
+              const span = document.createElement('span');
+              span.innerHTML = `<i class="bi bi-dot"></i>${stat}`;
+              statsContainer.appendChild(span);
+            });
+          } else {
+            statsContainer.style.display = 'none';
+          }
+        }
+
+        const countsContainer = experienceModalEl.querySelector('#experienceModalCounts');
+        if (countsContainer) {
+          countsContainer.innerHTML = '';
+          const counts = (dataset.counts || '').split('|').map(count => count.trim()).filter(Boolean);
+          if (counts.length) {
+            countsContainer.style.display = '';
+            counts.forEach(count => {
+              const span = document.createElement('span');
+              span.innerHTML = `<i class="bi bi-dot"></i>${count}`;
+              countsContainer.appendChild(span);
+            });
+          } else {
+            countsContainer.style.display = 'none';
+          }
+        }
+
+        const commentsContainer = experienceModalEl.querySelector('#experienceModalComments');
+        if (commentsContainer) {
+          commentsContainer.innerHTML = '';
+          const commentsRaw = dataset.comments || '';
+          const comments = commentsRaw.split('||').map(comment => comment.trim()).filter(Boolean);
+          if (comments.length) {
+            comments.forEach(comment => {
+              const [name, role, message, time, avatar] = comment.split('::');
+              const item = document.createElement('div');
+              item.className = 'comment-item';
+
+              const avatarNode = document.createElement('img');
+              avatarNode.src = avatar || dataset.avatar || '';
+              avatarNode.alt = (name || dataset.user || 'Topluluk üyesi').trim();
+              avatarNode.classList.add('flex-shrink-0');
+              item.appendChild(avatarNode);
+
+              const body = document.createElement('div');
+              const header = document.createElement('div');
+              header.className = 'd-flex flex-wrap align-items-center gap-2';
+
+              const nameEl = document.createElement('strong');
+              nameEl.textContent = name || 'Topluluk Üyesi';
+              header.appendChild(nameEl);
+
+              if (role) {
+                const roleEl = document.createElement('span');
+                roleEl.className = 'comment-meta';
+                roleEl.textContent = role;
+                header.appendChild(roleEl);
+              }
+
+              if (time) {
+                const timeEl = document.createElement('span');
+                timeEl.className = 'comment-meta ms-auto';
+                timeEl.textContent = time;
+                header.appendChild(timeEl);
+              }
+
+              body.appendChild(header);
+
+              if (message) {
+                const messageEl = document.createElement('p');
+                messageEl.className = 'mb-0 text-muted';
+                messageEl.textContent = message;
+                body.appendChild(messageEl);
+              }
+
+              item.appendChild(body);
+              commentsContainer.appendChild(item);
+            });
+          } else {
+            const emptyState = document.createElement('div');
+            emptyState.className = 'text-muted small';
+            emptyState.textContent = 'İlk yorumu sen bırak.';
+            commentsContainer.appendChild(emptyState);
+          }
+        }
+      });
+
+      experienceModalEl.addEventListener('hidden.bs.modal', () => {
+        modalTrigger = null;
+        const mediaContainer = experienceModalEl.querySelector('#experienceModalMedia');
+        if (mediaContainer) {
+          mediaContainer.innerHTML = '';
+        }
+      });
+    }
+
+    if (experienceModalEl) {
+      const modalInstance = bootstrap.Modal.getOrCreateInstance(experienceModalEl);
+      document.querySelectorAll('.experience-card.open-experience').forEach(card => {
+        card.addEventListener('click', () => {
+          modalTrigger = card;
+          modalInstance.show();
+        });
+        card.addEventListener('keypress', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            modalTrigger = card;
+            modalInstance.show();
+          }
+        });
+      });
+    }
+
+    const mobileNav = document.querySelector('.mobile-bottom-nav');
+    if (mobileNav) {
+      const navLinks = mobileNav.querySelectorAll('a[href^="#"]');
+      const sections = Array.from(navLinks)
+        .map(link => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+      const setActiveLink = id => {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+        });
+      };
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          const targetId = link.getAttribute('href')?.replace('#', '') || '';
+          if (targetId) {
+            setActiveLink(targetId);
+          }
+        });
+      });
+
+      const handleScroll = () => {
+        const scrollPos = window.scrollY + 140;
+        let currentSection = sections[0]?.id;
+        sections.forEach(section => {
+          if (section && scrollPos >= section.offsetTop) {
+            currentSection = section.id;
+          }
+        });
+        if (currentSection) {
+          setActiveLink(currentSection);
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll);
+      handleScroll();
+    }
+  </script>
+</body>
+</html>
