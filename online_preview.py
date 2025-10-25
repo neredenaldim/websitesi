@@ -39,12 +39,20 @@ def ensure_pyngrok(auto_install: bool = True) -> PyngrokModules:
         if not auto_install:
             raise
         print("pyngrok is missing. Installing it now...", file=sys.stderr)
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "pyngrok"])
-        except subprocess.CalledProcessError as exc:  # pragma: no cover - depends on pip
-            raise SystemExit(
-                "Automatic pyngrok installation failed. Install it manually with 'pip install pyngrok'."
-            ) from exc
+        result = subprocess.run(
+            [sys.executable, "-m", "pip", "install", "pyngrok"],
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode != 0:  # pragma: no cover - depends on pip
+            hint = "Install it manually with 'pip install pyngrok'."
+            message = (result.stderr or result.stdout or "").lower()
+            if "tunnel connection failed" in message or "proxy" in message:
+                hint = (
+                    "This environment blocked the download (likely due to missing internet access). "
+                    "Run this helper on a network-enabled machine or install pyngrok manually."
+                )
+            raise SystemExit(f"Automatic pyngrok installation failed. {hint}")
         from pyngrok import conf, ngrok  # type: ignore
 
     return conf, ngrok
