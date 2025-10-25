@@ -238,13 +238,24 @@
       border: 1px solid rgba(0, 0, 0, 0.04);
       box-shadow: var(--shadow-card);
       overflow: hidden;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
     .experience-card:hover {
       transform: translateY(-6px);
+      box-shadow: 0 24px 40px rgba(0, 139, 157, 0.16);
+    }
+
+    .experience-card.open-experience {
+      cursor: pointer;
+    }
+
+    .experience-card.open-experience:focus-visible {
+      outline: 3px solid rgba(0, 146, 159, 0.35);
+      outline-offset: 4px;
     }
 
     .experience-image {
@@ -259,6 +270,29 @@
       flex-direction: column;
       gap: 1rem;
       height: 100%;
+    }
+
+    .experience-quick {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .experience-quick span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(0, 136, 148, 0.1);
+      color: var(--primary-700);
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.25rem 0.7rem;
+      font-size: 0.75rem;
+    }
+
+    .experience-quick span i {
+      font-size: 0.9rem;
     }
 
     .rating-pill {
@@ -395,19 +429,100 @@
       font-weight: 700;
     }
 
-    .modal-image-wrapper {
-      aspect-ratio: 3 / 4;
-      background: rgba(0, 0, 0, 0.04);
+    .modal-media-wrapper {
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-media-wrapper::after {
+      content: "";
+      display: block;
+      padding-bottom: 125%;
+    }
+
+    .modal-media-wrapper > * {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-media-wrapper iframe {
+      border: 0;
+    }
+
+    .modal-media-wrapper video {
+      background: #000;
     }
 
     .modal-experience .modal-stats span {
-      background: rgba(0, 136, 148, 0.08);
-      color: var(--text-600);
-      border-radius: 12px;
-      padding: 0.5rem 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(0, 136, 148, 0.1);
+      color: var(--primary-700);
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .modal-interactions {
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
+      padding-top: 1.5rem;
+    }
+
+    .modal-interactions .btn {
+      font-weight: 600;
+    }
+
+    .modal-counts {
+      color: var(--text-400);
+      font-size: 0.85rem;
+    }
+
+    .modal-counts span {
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
+    }
+
+    .modal-comments {
+      margin-top: 1.75rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      padding-top: 1.5rem;
+    }
+
+    .modal-comments-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .comment-item {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .comment-item img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(0, 136, 148, 0.2);
+    }
+
+    .comment-item strong {
+      font-weight: 700;
+      color: var(--text-900);
+    }
+
+    .comment-meta {
+      color: var(--text-400);
+      font-size: 0.8rem;
     }
 
     .app-shell {
@@ -824,8 +939,8 @@
           </div>
         </div>
         <div class="row g-4">
-          <div class="col-md-6 col-xl-3">
-            <div class="experience-card h-100">
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Robot Süpürge" data-category="Akıllı Ev" data-rating="4.7" data-quote="Günlük rutinden beni kurtardı. Halılarda performansı harika." data-description="Üç haftadır her gün otomatik olarak çalıştırıyorum. Halı ve sert zeminde eşit performans veriyor, mobil uygulamasından detaylı harita çıkarabiliyorum." data-tags="Akıllı haritalama|Halılarda yüksek performans|Sessiz çalışma modu" data-stats="1.2K beğeni|19 soru|Teslimat 2 günde" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=120&q=80" data-user="Elif Demir" data-role="Akıllı Ev Uzmanı" data-time="2 saat önce" data-counts="1.2K Beğeni|19 Soru|86 Favori" data-comments="Ayşe::Ürün Avcısı::Ben de aynı modeli kullanıyorum, sessizliği harika!::1 saat önce::https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80||Selim::Tekno Blogger::Uygulama haritalaması detaylıymış, deneyimin için teşekkürler!::3 saat önce::https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?auto=format&fit=crop&w=120&q=80||Gamze::Yeni Üye::Şarj süresi nasıl, tüm evi tek seferde tamamlıyor mu?::Dün::https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80">
               <img class="experience-image" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Robot süpürge">
               <div class="experience-body">
                 <div class="d-flex justify-content-between align-items-center">
@@ -836,6 +951,11 @@
                   <h6 class="fw-semibold mb-1">Robot Süpürge</h6>
                   <p class="text-muted small mb-0">"Günlük rutinden beni kurtardı. Halılarda performansı harika."</p>
                 </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>1.2K</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>19</span>
+                  <span><i class="bi bi-bookmark-heart text-warning"></i>86</span>
+                </div>
                 <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
                   <div class="d-flex align-items-center gap-2">
                     <img class="rounded-circle" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=120&q=80" alt="Elif" width="40" height="40">
@@ -844,13 +964,13 @@
                       <small class="text-muted">Akıllı Ev Uzmanı</small>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-soft-primary open-experience" data-bs-toggle="modal" data-bs-target="#experienceModal" data-title="Robot Süpürge" data-category="Akıllı Ev" data-rating="4.7" data-quote="Günlük rutinden beni kurtardı. Halılarda performansı harika." data-description="Üç haftadır her gün otomatik olarak çalıştırıyorum. Halı ve sert zeminde eşit performans veriyor, mobil uygulamasından detaylı harita çıkarabiliyorum." data-tags="Akıllı haritalama|Halılarda yüksek performans|Sessiz çalışma modu" data-stats="1.2K beğeni|19 soru|Teslimat 2 günde" data-image="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=120&q=80" data-user="Elif Demir" data-role="Akıllı Ev Uzmanı" data-time="2 saat önce" aria-label="Paylaşımı Gör: Robot Süpürge">Paylaşımı Gör <i class="bi bi-box-arrow-up-right"></i></button>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-xl-3">
-            <div class="experience-card h-100">
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Akıllı Saat" data-category="Sağlık" data-rating="4.9" data-quote="Uyku takibi verileri sayesinde kendimi daha iyi tanıyorum." data-description="Stresi ve nabzı sürekli ölçüyor, egzersiz sırasında otomatik modları devreye sokuyor. Uyku kalitesi raporları her sabah telefonuma düşüyor." data-tags="Detaylı uyku analizi|Sürekli nabız takibi|Uzun pil ömrü" data-stats="980 beğeni|25 soru|3 paylaşım" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" data-user="Barış Tan" data-role="Wellness Coach" data-time="Dün" data-counts="980 Beğeni|25 Soru|3 Paylaşım" data-comments="Derya::Koşu Kulübü::Antrenman modları arasında yüzme var mı?::2 saat önce::https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80||Kenan::Biohack Uzmanı::Pil performansını paylaştığın için teşekkürler, çok yardımcı oldu.::Dün::https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=120&q=80||Mira::Uyku Koçu::Uyku raporlarını telefonla paylaşabiliyor musun?::3 gün önce::https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=120&q=80">
               <img class="experience-image" src="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=800&q=80" alt="Akıllı saat">
               <div class="experience-body">
                 <div class="d-flex justify-content-between align-items-center">
@@ -861,6 +981,11 @@
                   <h6 class="fw-semibold mb-1">Akıllı Saat</h6>
                   <p class="text-muted small mb-0">"Uyku takibi verileri sayesinde kendimi daha iyi tanıyorum."</p>
                 </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>980</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>25</span>
+                  <span><i class="bi bi-share-fill text-success"></i>3</span>
+                </div>
                 <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
                   <div class="d-flex align-items-center gap-2">
                     <img class="rounded-circle" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" alt="Barış" width="40" height="40">
@@ -869,13 +994,13 @@
                       <small class="text-muted">Wellness Coach</small>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-soft-primary open-experience" data-bs-toggle="modal" data-bs-target="#experienceModal" data-title="Akıllı Saat" data-category="Sağlık" data-rating="4.9" data-quote="Uyku takibi verileri sayesinde kendimi daha iyi tanıyorum." data-description="Stresi ve nabzı sürekli ölçüyor, egzersiz sırasında otomatik modları devreye sokuyor. Uyku kalitesi raporları her sabah telefonuma düşüyor." data-tags="Detaylı uyku analizi|Sürekli nabız takibi|Uzun pil ömrü" data-stats="980 beğeni|25 soru|3 paylaşım" data-image="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" data-user="Barış Tan" data-role="Wellness Coach" data-time="Dün" aria-label="Paylaşımı Gör: Akıllı Saat">Paylaşımı Gör <i class="bi bi-box-arrow-up-right"></i></button>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-xl-3">
-            <div class="experience-card h-100">
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Espresso Makinesi" data-category="Mutfak" data-rating="4.6" data-quote="Süt köpürtücüsü barista standardında." data-description="Bu modelle latte art denemeleri yapıyorum. 25 saniyelik shot süresi çok tutarlı, temizliği de kolay. Programlanabilir modlar sabah rutinimi hızlandırdı." data-tags="Barista seviyesi köpük|Programlanabilir shot|Kolay temizlik" data-stats="760 beğeni|14 soru|86 favori" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=120&q=80" data-user="Seda Lale" data-role="Kahve Sever" data-time="3 gün önce" data-counts="760 Beğeni|14 Soru|86 Favori" data-comments="Onur::Kafe Sahibi::Latte art için süt sıcaklığını nasıl ayarlıyorsun?::5 saat önce::https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80||Melis::Tatlı Şefi::Temizlik için hangi ürünleri önerirsin?::2 gün önce::https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=120&q=80||Burak::Ev Baristası::Kahve çekirdeği önerilerini bekliyorum.::4 gün önce::https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=120&q=80">
               <img class="experience-image" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=800&q=80" alt="Kahve makinesi">
               <div class="experience-body">
                 <div class="d-flex justify-content-between align-items-center">
@@ -886,6 +1011,11 @@
                   <h6 class="fw-semibold mb-1">Espresso Makinesi</h6>
                   <p class="text-muted small mb-0">"Süt köpürtücüsü barista standardında."</p>
                 </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>760</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>14</span>
+                  <span><i class="bi bi-bookmark-check text-success"></i>86</span>
+                </div>
                 <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
                   <div class="d-flex align-items-center gap-2">
                     <img class="rounded-circle" src="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=120&q=80" alt="Seda" width="40" height="40">
@@ -894,14 +1024,14 @@
                       <small class="text-muted">Kahve Sever</small>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-soft-primary open-experience" data-bs-toggle="modal" data-bs-target="#experienceModal" data-title="Espresso Makinesi" data-category="Mutfak" data-rating="4.6" data-quote="Süt köpürtücüsü barista standardında." data-description="Bu modelle latte art denemeleri yapıyorum. 25 saniyelik shot süresi çok tutarlı, temizliği de kolay. Programlanabilir modlar sabah rutinimi hızlandırdı." data-tags="Barista seviyesi köpük|Programlanabilir shot|Kolay temizlik" data-stats="760 beğeni|14 soru|Favori 86" data-image="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=120&q=80" data-user="Seda Lale" data-role="Kahve Sever" data-time="3 gün önce" aria-label="Paylaşımı Gör: Espresso Makinesi">Paylaşımı Gör <i class="bi bi-box-arrow-up-right"></i></button>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-xl-3">
-            <div class="experience-card h-100">
-              <img class="experience-image" src="https://images.unsplash.com/photo-1518540632084-3b80cd1c1e5b?auto=format&fit=crop&w=800&q=80" alt="Bisiklet">
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Karbon Yol Bisikleti" data-category="Aktif Yaşam" data-rating="4.8" data-quote="Hafifliği ve aerodinamiği ile şehirde süzülmek gibi." data-description="Yokuşlarda güç harcamadan hızlanıyorum. Karbon kadro titreşimleri minimize ediyor, Shimano seti vites geçişlerini tereyağı gibi yapıyor." data-tags="4.9 kg kadro|Shimano Ultegra set|Hızlı tırmanış" data-stats="1.5K beğeni|32 soru|Topluluk önerisi" data-media-type="image" data-media-src="https://images.unsplash.com/photo-1518540632084-3b80cd1c1e5b?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1518540632084-3b80cd1c1e5b?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" data-user="Murat Kaya" data-role="Sürüş Tutkunu" data-time="1 hafta önce" data-counts="1.5K Beğeni|32 Soru|124 Kaydetme" data-comments="İpek::Şehir Bisikletçisi::Rüzgar direnci düşük hissediliyor mu?::12 saat önce::https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=120&q=80||Umut::Triatlet::Tırmanışlarda hangi dişli kombinasyonunu kullanıyorsun?::2 gün önce::https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80||Kerem::Mekanik Uzmanı::Bakım için önerdiğin bir servis var mı?::Geçen hafta::https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1518540632084-3b80cd1c1e5b?auto=format&fit=crop&w=800&q=80" alt="Karbon yol bisikleti">
               <div class="experience-body">
                 <div class="d-flex justify-content-between align-items-center">
                   <span class="badge badge-light">Aktif Yaşam</span>
@@ -911,6 +1041,11 @@
                   <h6 class="fw-semibold mb-1">Karbon Yol Bisikleti</h6>
                   <p class="text-muted small mb-0">"Hafifliği ve aerodinamiği ile şehirde süzülmek gibi."</p>
                 </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>1.5K</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>32</span>
+                  <span><i class="bi bi-bookmark-star text-warning"></i>124</span>
+                </div>
                 <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
                   <div class="d-flex align-items-center gap-2">
                     <img class="rounded-circle" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" alt="Murat" width="40" height="40">
@@ -919,7 +1054,67 @@
                       <small class="text-muted">Sürüş Tutkunu</small>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-soft-primary open-experience" data-bs-toggle="modal" data-bs-target="#experienceModal" data-title="Karbon Yol Bisikleti" data-category="Aktif Yaşam" data-rating="4.8" data-quote="Hafifliği ve aerodinamiği ile şehirde süzülmek gibi." data-description="Yokuşlarda güç harcamadan hızlanıyorum. Karbon kadro titreşimleri minimize ediyor, Shimano seti vites geçişlerini tereyağı gibi yapıyor." data-tags="4.9 kg kadro|Shimano Ultegra set|Hızlı tırmanış" data-stats="1.5K beğeni|32 soru|Topluluk önerisi" data-image="https://images.unsplash.com/photo-1518540632084-3b80cd1c1e5b?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" data-user="Murat Kaya" data-role="Sürüş Tutkunu" data-time="1 hafta önce" aria-label="Paylaşımı Gör: Karbon Yol Bisikleti">Paylaşımı Gör <i class="bi bi-box-arrow-up-right"></i></button>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="4K Akıllı Projektör" data-category="Eğlence" data-rating="4.9" data-quote="Sinemayı salonuma taşıdım, renkler capcanlı." data-description="Wi-Fi 6 desteği sayesinde içerikler anında akıyor. Otomatik keystone düzeltmesi ile kurulum dakikalar sürdü." data-tags="Otomatik odaklama|Sessiz fan|Dolby Atmos desteği" data-stats="1.1K beğeni|42 yorum|12 paylaşım" data-media-type="embed" data-media-src="https://www.youtube.com/embed/S14uVKcCuIE?rel=0&modestbranding=1" data-image="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80" data-user="Merve Kaya" data-role="Sinema Tutkunu" data-time="3 gün önce" data-counts="1.1K Beğeni|42 Yorum|12 Paylaşım" data-comments="Serkan::Ev Sineması Uzmanı::Karanlık olmayan ortamda parlaklık yeterli mi?::4 saat önce::https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80||Nil::Film Kulübü::Netflix ve Disney+ tuşları kumandada hazır mı?::1 gün önce::https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80||Tolga::Ses Mühendisi::Harici ses sistemi bağlarken gecikme yaşadın mı?::5 gün önce::https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?auto=format&fit=crop&w=120&q=80">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80" alt="Akıllı projektör">
+              <div class="experience-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge badge-light">Eğlence</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.9</span>
+                </div>
+                <div>
+                  <h6 class="fw-semibold mb-1">4K Akıllı Projektör</h6>
+                  <p class="text-muted small mb-0">"Sinemayı salonuma taşıdım, renkler capcanlı."</p>
+                </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>1.1K</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>42</span>
+                  <span><i class="bi bi-camera-video-fill text-success"></i>4K</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="rounded-circle" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80" alt="Merve" width="40" height="40">
+                    <div>
+                      <small class="fw-semibold text-dark d-block">Merve K.</small>
+                      <small class="text-muted">Sinema Tutkunu</small>
+                    </div>
+                  </div>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4 col-xxl-3">
+            <div class="experience-card h-100 open-experience" role="button" tabindex="0" data-experience="true" data-bs-target="#experienceModal" data-title="Aksiyon Kamerası" data-category="Outdoor" data-rating="4.8" data-quote="Titreşim engelleme sayesinde sarsıntısız kayıt alıyorum." data-description="HyperSmooth sabitleme kayak ve dalış videolarımı sinema tadında yapıyor. 5 metreye kadar kılıfsız su geçirmezlik çok pratik." data-tags="5K60 kayıt|HyperSmooth 6.0|Su geçirmez" data-stats="864 beğeni|18 yorum|34 favori" data-media-type="video" data-media-src="https://cdn.coverr.co/videos/coverr-extreme-mountain-biking-1585316803?download=1" data-media-poster="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" data-image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" data-avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" data-user="Deniz Arslan" data-role="Macera Rehberi" data-time="5 gün önce" data-counts="864 Beğeni|18 Yorum|34 Favori" data-comments="Ufuk::Dağ Bisikletçisi::Gece çekimlerinde performansı nasıl?::6 saat önce::https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80||Lale::Dalış Eğitmeni::Su altı modunda renk düzeltmesini açık mı kullanıyorsun?::2 gün önce::https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80||Can::Drone Pilot::Kask montajı için önerdiğin aksesuar var mı?::1 hafta önce::https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="Aksiyon kamerası">
+              <div class="experience-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="badge badge-light">Outdoor</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.8</span>
+                </div>
+                <div>
+                  <h6 class="fw-semibold mb-1">Aksiyon Kamerası</h6>
+                  <p class="text-muted small mb-0">"Titreşim engelleme sayesinde sarsıntısız kayıt alıyorum."</p>
+                </div>
+                <div class="experience-quick">
+                  <span><i class="bi bi-heart-fill text-danger"></i>864</span>
+                  <span><i class="bi bi-chat-dots text-primary"></i>18</span>
+                  <span><i class="bi bi-collection-play text-success"></i>5K60</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-2 pt-2 mt-auto">
+                  <div class="d-flex align-items-center gap-2">
+                    <img class="rounded-circle" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Deniz" width="40" height="40">
+                    <div>
+                      <small class="fw-semibold text-dark d-block">Deniz A.</small>
+                      <small class="text-muted">Macera Rehberi</small>
+                    </div>
+                  </div>
+                  <span class="text-primary"><i class="bi bi-box-arrow-up-right fs-5"></i></span>
                 </div>
               </div>
             </div>
@@ -1231,9 +1426,7 @@
           <div class="modal-body">
             <div class="row g-4 align-items-start">
               <div class="col-lg-5">
-                <div class="modal-image-wrapper rounded-4 overflow-hidden shadow-sm">
-                  <img id="experienceModalImage" src="" alt="Deneyim görseli" class="w-100 h-100 object-fit-cover">
-                </div>
+                <div class="modal-media-wrapper shadow-sm" id="experienceModalMedia"></div>
                 <div class="d-flex align-items-center gap-3 mt-3">
                   <img id="experienceModalAvatar" src="" alt="Kullanıcı" class="rounded-circle border border-2 border-light" width="56" height="56">
                   <div>
@@ -1251,6 +1444,21 @@
                 <p class="text-muted" id="experienceModalDescription">Deneyimin detayları burada yer alacak.</p>
                 <div class="d-flex flex-wrap gap-2 mt-3" id="experienceModalTags"></div>
                 <div class="modal-stats d-flex flex-wrap gap-2 mt-4" id="experienceModalStats"></div>
+                <div class="modal-interactions mt-4">
+                  <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-soft-primary btn-sm"><i class="bi bi-hand-thumbs-up-fill"></i> Beğen</button>
+                    <button type="button" class="btn btn-soft-primary btn-sm"><i class="bi bi-bookmark-plus"></i> Kaydet</button>
+                    <button type="button" class="btn btn-soft-primary btn-sm"><i class="bi bi-share-fill"></i> Paylaş</button>
+                  </div>
+                  <div class="modal-counts d-flex flex-wrap gap-3 mt-3" id="experienceModalCounts"></div>
+                </div>
+                <div class="modal-comments">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <h6 class="fw-semibold mb-0">Yorumlar</h6>
+                    <button type="button" class="btn btn-link btn-sm text-decoration-none text-primary"><i class="bi bi-chat-text"></i> Yorum yaz</button>
+                  </div>
+                  <div class="modal-comments-list mt-3" id="experienceModalComments"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -1289,9 +1497,10 @@
     })();
 
     const experienceModalEl = document.getElementById('experienceModal');
+    let modalTrigger = null;
     if (experienceModalEl) {
       experienceModalEl.addEventListener('show.bs.modal', event => {
-        const trigger = event.relatedTarget;
+        const trigger = event.relatedTarget || modalTrigger;
         if (!trigger) {
           return;
         }
@@ -1320,10 +1529,32 @@
           ratingEl.innerHTML = `<i class="bi bi-star-fill text-warning"></i>${dataset.rating || '-'}`;
         }
 
-        const imageEl = experienceModalEl.querySelector('#experienceModalImage');
-        if (imageEl) {
-          imageEl.src = dataset.image || '';
-          imageEl.alt = dataset.title ? `${dataset.title} görseli` : 'Deneyim görseli';
+        const mediaContainer = experienceModalEl.querySelector('#experienceModalMedia');
+        if (mediaContainer) {
+          mediaContainer.innerHTML = '';
+          const mediaType = (dataset.mediaType || '').toLowerCase();
+          const mediaSrc = dataset.mediaSrc || dataset.image || '';
+          if (mediaType === 'video' && mediaSrc) {
+            const video = document.createElement('video');
+            video.controls = true;
+            video.playsInline = true;
+            video.src = mediaSrc;
+            if (dataset.mediaPoster) {
+              video.poster = dataset.mediaPoster;
+            }
+            mediaContainer.appendChild(video);
+          } else if ((mediaType === 'embed' || mediaType === 'youtube') && mediaSrc) {
+            const iframe = document.createElement('iframe');
+            iframe.src = mediaSrc;
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+            iframe.allowFullscreen = true;
+            mediaContainer.appendChild(iframe);
+          } else if (mediaSrc) {
+            const img = document.createElement('img');
+            img.src = mediaSrc;
+            img.alt = dataset.title ? `${dataset.title} görseli` : 'Deneyim görseli';
+            mediaContainer.appendChild(img);
+          }
         }
 
         const avatarEl = experienceModalEl.querySelector('#experienceModalAvatar');
@@ -1364,6 +1595,106 @@
             statsContainer.style.display = 'none';
           }
         }
+
+        const countsContainer = experienceModalEl.querySelector('#experienceModalCounts');
+        if (countsContainer) {
+          countsContainer.innerHTML = '';
+          const counts = (dataset.counts || '').split('|').map(count => count.trim()).filter(Boolean);
+          if (counts.length) {
+            countsContainer.style.display = '';
+            counts.forEach(count => {
+              const span = document.createElement('span');
+              span.innerHTML = `<i class="bi bi-dot"></i>${count}`;
+              countsContainer.appendChild(span);
+            });
+          } else {
+            countsContainer.style.display = 'none';
+          }
+        }
+
+        const commentsContainer = experienceModalEl.querySelector('#experienceModalComments');
+        if (commentsContainer) {
+          commentsContainer.innerHTML = '';
+          const commentsRaw = dataset.comments || '';
+          const comments = commentsRaw.split('||').map(comment => comment.trim()).filter(Boolean);
+          if (comments.length) {
+            comments.forEach(comment => {
+              const [name, role, message, time, avatar] = comment.split('::');
+              const item = document.createElement('div');
+              item.className = 'comment-item';
+
+              const avatarNode = document.createElement('img');
+              avatarNode.src = avatar || dataset.avatar || '';
+              avatarNode.alt = (name || dataset.user || 'Topluluk üyesi').trim();
+              avatarNode.classList.add('flex-shrink-0');
+              item.appendChild(avatarNode);
+
+              const body = document.createElement('div');
+              const header = document.createElement('div');
+              header.className = 'd-flex flex-wrap align-items-center gap-2';
+
+              const nameEl = document.createElement('strong');
+              nameEl.textContent = name || 'Topluluk Üyesi';
+              header.appendChild(nameEl);
+
+              if (role) {
+                const roleEl = document.createElement('span');
+                roleEl.className = 'comment-meta';
+                roleEl.textContent = role;
+                header.appendChild(roleEl);
+              }
+
+              if (time) {
+                const timeEl = document.createElement('span');
+                timeEl.className = 'comment-meta ms-auto';
+                timeEl.textContent = time;
+                header.appendChild(timeEl);
+              }
+
+              body.appendChild(header);
+
+              if (message) {
+                const messageEl = document.createElement('p');
+                messageEl.className = 'mb-0 text-muted';
+                messageEl.textContent = message;
+                body.appendChild(messageEl);
+              }
+
+              item.appendChild(body);
+              commentsContainer.appendChild(item);
+            });
+          } else {
+            const emptyState = document.createElement('div');
+            emptyState.className = 'text-muted small';
+            emptyState.textContent = 'İlk yorumu sen bırak.';
+            commentsContainer.appendChild(emptyState);
+          }
+        }
+      });
+
+      experienceModalEl.addEventListener('hidden.bs.modal', () => {
+        modalTrigger = null;
+        const mediaContainer = experienceModalEl.querySelector('#experienceModalMedia');
+        if (mediaContainer) {
+          mediaContainer.innerHTML = '';
+        }
+      });
+    }
+
+    if (experienceModalEl) {
+      const modalInstance = bootstrap.Modal.getOrCreateInstance(experienceModalEl);
+      document.querySelectorAll('.experience-card.open-experience').forEach(card => {
+        card.addEventListener('click', () => {
+          modalTrigger = card;
+          modalInstance.show();
+        });
+        card.addEventListener('keypress', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            modalTrigger = card;
+            modalInstance.show();
+          }
+        });
       });
     }
 
