@@ -13,6 +13,7 @@ import subprocess
 import sys
 import threading
 import time
+import webbrowser
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Optional, Tuple
@@ -206,6 +207,11 @@ def main() -> int:
         action="store_true",
         help="Disable automatic pyngrok installation.",
     )
+    parser.add_argument(
+        "--no-browser",
+        action="store_true",
+        help="Do not automatically open the local preview in a browser.",
+    )
 
     args = parser.parse_args()
     html_file = Path(args.html).resolve()
@@ -217,7 +223,8 @@ def main() -> int:
     port = find_available_port(args.port)
     server = start_server(html_file, port)
 
-    print(f"Serving {html_file} on http://127.0.0.1:{port}")
+    local_url = f"http://127.0.0.1:{port}/"
+    print(f"Serving {html_file} on {local_url}")
 
     try:
         auth_token = resolve_auth_token(args.auth_token)
@@ -259,6 +266,13 @@ def main() -> int:
                     "or another tunnelling tool in a network-enabled environment to share it."
                 )
             )
+            print(f"Local preview: {local_url}")
+            if not args.no_browser:
+                opened = webbrowser.open(local_url)
+                if opened:
+                    print("A browser window/tab should open shortly.")
+                else:
+                    print("(Could not auto-open a browser; copy the link above manually.)")
             print("Press Ctrl+C to stop the local server.")
 
             try:
@@ -269,12 +283,22 @@ def main() -> int:
             finally:
                 server.shutdown()
                 server.server_close()
-            return 1
+            return 0
 
         print("Public preview ready:")
         print(tunnel.url)
         if not auth_token:
             print("(Tip: add an ngrok auth token for longer-lived, faster tunnels.)")
+        if not args.no_browser:
+            opened_any = False
+            if webbrowser.open(tunnel.url):
+                opened_any = True
+                print("Opening public preview in your default browser...")
+            if webbrowser.open(local_url):
+                opened_any = True
+                print("Also opening the local server for quick testing...")
+            if not opened_any:
+                print("(Could not auto-open a browser; copy the URLs above manually.)")
         print("Press Ctrl+C to stop.")
 
         try:
