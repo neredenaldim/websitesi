@@ -6,15 +6,28 @@ import argparse
 import contextlib
 import http.server
 import os
+import re
+import shutil
 import socket
 import subprocess
 import sys
 import threading
 import time
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Optional, Tuple
+from typing import Any, Callable, Optional, Tuple
 
 PyngrokModules = Tuple[Any, Any]
+
+
+class TunnelError(RuntimeError):
+    """Raised when a tunnel backend cannot be established."""
+
+
+@dataclass
+class TunnelResult:
+    url: str
+    shutdown: Callable[[], None]
 
 
 def ensure_pyngrok(auto_install: bool = True) -> PyngrokModules:
@@ -75,12 +88,73 @@ def start_server(html_file: Path, port: int) -> http.server.ThreadingHTTPServer:
     return server
 
 
-def open_tunnel(port: int, auth_token: Optional[str], *, modules: PyngrokModules) -> str:
+def open_pyngrok_tunnel(
+    port: int, auth_token: Optional[str], *, modules: PyngrokModules
+) -> TunnelResult:
     conf_module, ngrok_module = modules
     if auth_token:
         conf_module.get_default().auth_token = auth_token
     public_url = ngrok_module.connect(port, proto="http")
-    return str(public_url.public_url)
+
+    def _shutdown() -> None:
+        modules[1].disconnect(public_url)
+
+    return TunnelResult(str(public_url.public_url), _shutdown)
+
+
+def open_ngrok_cli_tunnel(port: int, auth_token: Optional[str]) -> TunnelResult:
+    """Fallback to the ngrok CLI when the Python package is unavailable."""
+
+    ngrok_exe = shutil.which("ngrok")
+    if not ngrok_exe:
+        raise TunnelError("ngrok CLI is not installed or not on PATH.")
+
+    env = os.environ.copy()
+    if auth_token and "NGROK_AUTHTOKEN" not in env:
+        env["NGROK_AUTHTOKEN"] = auth_token
+
+    process = subprocess.Popen(
+        [ngrok_exe, "http", str(port), "--log=stdout"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        env=env,
+    )
+
+    assert process.stdout is not None  # for mypy
+    url_pattern = re.compile(r"url=(https?://[^\s]+)")
+    deadline = time.time() + 30
+    url = None
+
+    while time.time() < deadline:
+        line = process.stdout.readline()
+        if not line:
+            break
+        match = url_pattern.search(line)
+        if match:
+            candidate = match.group(1)
+            # Prefer HTTPS if both are emitted.
+            if candidate.startswith("https://"):
+                url = candidate
+                break
+            if url is None:
+                url = candidate
+        if "err=" in line:
+            process.terminate()
+            raise TunnelError(line.strip())
+
+    if not url:
+        process.terminate()
+        raise TunnelError("ngrok CLI did not report a public URL. Check your ngrok setup.")
+
+    def _shutdown() -> None:
+        process.terminate()
+        try:
+            process.wait(timeout=5)
+        except subprocess.TimeoutExpired:  # pragma: no cover - defensive
+            process.kill()
+
+    return TunnelResult(url, _shutdown)
 
 
 def resolve_auth_token(cli_token: Optional[str]) -> Optional[str]:
@@ -132,8 +206,6 @@ def main() -> int:
         print(f"Cannot find {html_file}.", file=sys.stderr)
         return 1
 
-    modules = ensure_pyngrok(auto_install=not args.skip_auto_install)
-
     port = find_available_port(args.port)
     server = start_server(html_file, port)
 
@@ -141,26 +213,76 @@ def main() -> int:
 
     try:
         auth_token = resolve_auth_token(args.auth_token)
-        public_url = open_tunnel(port, auth_token, modules=modules)
-    except Exception as exc:  # pragma: no cover - depends on ngrok responses
-        server.shutdown()
-        raise SystemExit(f"Failed to establish ngrok tunnel: {exc}")
 
-    print("Public preview ready:")
-    print(public_url)
-    if not auth_token:
-        print("(Tip: add an ngrok auth token for longer-lived, faster tunnels.)")
-    print("Press Ctrl+C to stop.")
+        modules: Optional[PyngrokModules]
+        try:
+            modules = ensure_pyngrok(auto_install=not args.skip_auto_install)
+        except SystemExit as exc:
+            modules = None
+            print(str(exc), file=sys.stderr)
+        except Exception as exc:  # pragma: no cover - defensive
+            modules = None
+            print(f"pyngrok could not be prepared: {exc}", file=sys.stderr)
 
-    try:
-        while True:
-            time.sleep(3600)
-    except KeyboardInterrupt:
-        print("\nShutting down...")
-    finally:
-        modules[1].disconnect(public_url)
+        tunnel: Optional[TunnelResult] = None
+        errors = []
+
+        if modules is not None:
+            try:
+                tunnel = open_pyngrok_tunnel(port, auth_token, modules=modules)
+            except Exception as exc:  # pragma: no cover - depends on ngrok
+                errors.append(f"pyngrok backend failed: {exc}")
+
+        if tunnel is None:
+            try:
+                tunnel = open_ngrok_cli_tunnel(port, auth_token)
+            except TunnelError as exc:
+                errors.append(str(exc))
+
+        if tunnel is None:
+            print("\nUnable to launch an online tunnel automatically.", file=sys.stderr)
+            if errors:
+                print("Reasons:", file=sys.stderr)
+                for reason in errors:
+                    print(f"  - {reason}", file=sys.stderr)
+            print(
+                (
+                    f"The page is still available locally; run 'ngrok http {port}' "
+                    "or another tunnelling tool in a network-enabled environment to share it."
+                )
+            )
+            print("Press Ctrl+C to stop the local server.")
+
+            try:
+                while True:
+                    time.sleep(3600)
+            except KeyboardInterrupt:
+                print("\nShutting down local server...")
+            finally:
+                server.shutdown()
+                server.server_close()
+            return 1
+
+        print("Public preview ready:")
+        print(tunnel.url)
+        if not auth_token:
+            print("(Tip: add an ngrok auth token for longer-lived, faster tunnels.)")
+        print("Press Ctrl+C to stop.")
+
+        try:
+            while True:
+                time.sleep(3600)
+        except KeyboardInterrupt:
+            print("\nShutting down...")
+        finally:
+            tunnel.shutdown()
+            server.shutdown()
+            server.server_close()
+
+    except Exception:
         server.shutdown()
         server.server_close()
+        raise
 
     return 0
 
