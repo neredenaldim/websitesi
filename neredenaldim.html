@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nereden Aldım? | Deneyimlerini Paylaş</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --primary-500: #008894;
+      --primary-600: #00929f;
+      --primary-700: #007b8d;
+      --accent-500: #ef3b30;
+      --accent-600: #ef4d3e;
+      --accent-700: #ef1a26;
+      --amber-500: #f99a2d;
+      --amber-600: #fbb019;
+      --amber-700: #f4831c;
+      --green-500: #7fc343;
+      --green-600: #b4d036;
+      --green-700: #51b749;
+      --surface: #f7fbfc;
+      --card: #ffffff;
+      --text-900: #0a1f24;
+      --text-600: #3e5b62;
+      --text-400: #6d8a92;
+      --radius-lg: 1.5rem;
+      --shadow-soft: 0 20px 35px rgba(0, 139, 157, 0.12);
+      --shadow-card: 0 18px 30px rgba(14, 63, 74, 0.08);
+      --nav-height: 72px;
+    }
+
+    * {
+      font-family: 'Manrope', sans-serif;
+    }
+
+    body {
+      background: var(--surface);
+      color: var(--text-900);
+      line-height: 1.6;
+    }
+
+    .navbar {
+      box-shadow: var(--shadow-card);
+      border-bottom: 1px solid rgba(0, 135, 149, 0.08);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-text {
+      font-weight: 800;
+      letter-spacing: -0.6px;
+      color: var(--primary-700);
+    }
+
+    .brand-dot {
+      color: var(--accent-500);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+      border: none;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-light:hover, .btn-outline-primary:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      padding: calc(var(--nav-height) + 5rem) 0 5rem;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(0, 136, 148, 0.16), transparent 55%),
+                  radial-gradient(circle at bottom left, rgba(81, 183, 73, 0.14), transparent 45%);
+      z-index: -1;
+    }
+
+    .hero-card {
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255,255,255,0.6);
+      padding: 2.5rem;
+    }
+
+    .hero-badge {
+      background: rgba(0, 136, 148, 0.1);
+      color: var(--primary-700);
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 1.25rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(0, 136, 148, 0.12);
+    }
+
+    .stat-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--primary-700);
+    }
+
+    .play-btn {
+      width: 52px;
+      height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--accent-500);
+      color: #fff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section-title {
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-400);
+      max-width: 540px;
+      margin: 0 auto 3rem;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      border: 1px solid rgba(0, 136, 148, 0.12);
+      box-shadow: var(--shadow-card);
+      height: 100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 40px rgba(0, 121, 137, 0.12);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #fff;
+    }
+
+    .palette-primary { background: linear-gradient(135deg, var(--primary-700), var(--primary-600)); }
+    .palette-accent { background: linear-gradient(135deg, var(--accent-700), var(--accent-600)); }
+    .palette-amber { background: linear-gradient(135deg, var(--amber-700), var(--amber-600)); }
+    .palette-green { background: linear-gradient(135deg, var(--green-700), var(--green-600)); }
+
+    .step-card {
+      background: rgba(255,255,255,0.92);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(0,0,0,0.04);
+      box-shadow: var(--shadow-card);
+      height: 100%;
+    }
+
+    .step-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      background: rgba(0, 136, 148, 0.14);
+      color: var(--primary-700);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .experience-card {
+      background: var(--card);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .experience-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .experience-image {
+      aspect-ratio: 16 / 12;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .rating-pill {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .badge-light {
+      background: rgba(0, 136, 148, 0.12);
+      color: var(--primary-700);
+    }
+
+    .upload-card {
+      background: linear-gradient(165deg, rgba(0,136,148,0.94), rgba(0,146,159,0.86));
+      border-radius: 1.75rem;
+      color: #fff;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-card::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0) 65%);
+      opacity: 0.6;
+    }
+
+    .upload-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-floating label {
+      color: var(--text-400);
+    }
+
+    .testimonial-card {
+      background: var(--card);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(0, 136, 148, 0.12);
+      padding: 2rem;
+      height: 100%;
+      box-shadow: var(--shadow-card);
+    }
+
+    .testimonial-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .accordion-button:not(.collapsed) {
+      background: rgba(0, 136, 148, 0.08);
+      color: var(--primary-700);
+    }
+
+    .cta-card {
+      background: linear-gradient(155deg, var(--primary-700), var(--accent-600));
+      color: #fff;
+      border-radius: 1.75rem;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .cta-card::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: rgba(255,255,255,0.14);
+      border-radius: 50%;
+      top: -80px;
+      right: -40px;
+    }
+
+    .cta-card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 50%;
+      bottom: -70px;
+      left: -50px;
+    }
+
+    footer {
+      background: #03161a;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .app-shell {
+      max-width: 430px;
+      margin: 0 auto;
+      border-radius: 28px;
+      background: #eef6f8;
+      box-shadow: 0 28px 60px rgba(4, 38, 46, 0.18);
+      overflow: hidden;
+    }
+
+    .app-shell .navbar {
+      border-radius: 28px 28px 0 0;
+    }
+
+    @media (max-width: 991.98px) {
+      .hero {
+        padding-top: calc(var(--nav-height) + 3rem);
+      }
+      .hero-card {
+        margin-top: 2rem;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      body {
+        background: linear-gradient(180deg, rgba(0, 136, 148, 0.12), rgba(255,255,255,1) 45%);
+      }
+      .app-shell {
+        border-radius: 0;
+        box-shadow: none;
+        max-width: 100%;
+      }
+      .hero-card {
+        padding: 2rem;
+      }
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+      .cta-card {
+        padding: 2.5rem 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <nav class="navbar navbar-expand-lg py-3 animate__animated animate__fadeInDown">
+      <div class="container px-4">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+          <span class="d-inline-flex align-items-center justify-content-center rounded-circle p-2 palette-primary" style="width: 44px; height: 44px;">
+            <i class="bi bi-compass"></i>
+          </span>
+          <span class="brand-text">nereden<span class="brand-dot">.</span>aldım</span>
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+            <li class="nav-item"><a class="nav-link" href="#neden">Neden Biz?</a></li>
+            <li class="nav-item"><a class="nav-link" href="#adimlar">Nasıl Çalışır?</a></li>
+            <li class="nav-item"><a class="nav-link" href="#trend">Trend Deneyimler</a></li>
+            <li class="nav-item"><a class="nav-link" href="#sss">SSS</a></li>
+            <li class="nav-item"><a class="nav-link" href="#indir">Uygulama</a></li>
+            <li class="nav-item mt-3 mt-lg-0">
+              <a class="btn btn-primary px-4" href="#paylas">Deneyim Paylaş</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero" id="hero">
+      <div class="container px-4">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <div class="hero-card animate__animated animate__fadeInUp">
+              <span class="hero-badge">
+                <i class="bi bi-stars"></i>
+                Gerçek kullanıcı deneyimleri
+              </span>
+              <h1 class="display-5 fw-bold mt-3">Aldığın ürünleri paylaş, topluluğumuzla güveni inşa et.</h1>
+              <p class="text-muted mt-3">NeredenAldım, deneyimlerini fotoğraflarıyla birlikte paylaşmanı ve diğer kullanıcıların doğru kararı vermesine yardımcı olmanı sağlar. Soruları yanıtla, puan ver ve sesini toplulukla buluştur.</p>
+              <div class="d-flex flex-wrap align-items-center gap-3 mt-4">
+                <a class="btn btn-primary btn-lg px-4" href="#paylas">Hemen Deneyimini Yükle</a>
+                <a class="d-flex align-items-center gap-2 text-decoration-none text-dark" href="#introVideo">
+                  <span class="play-btn"><i class="bi bi-play-fill"></i></span>
+                  <span class="fw-semibold">60 saniyede tanı</span>
+                </a>
+              </div>
+              <div class="hero-stats mt-5">
+                <div class="stat-card">
+                  <span class="stat-value">+85K</span>
+                  <p class="mb-0 text-muted">Doğrulanmış ürün paylaşımı</p>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-value">%92</span>
+                  <p class="mb-0 text-muted">Deneyimlerden memnuniyet</p>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-value">48s</span>
+                  <p class="mb-0 text-muted">Ortalama soru yanıt süresi</p>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-value">7/24</span>
+                  <p class="mb-0 text-muted">Topluluk moderasyonu</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="position-relative">
+              <div class="upload-card text-start text-lg-end animate__animated animate__fadeInRight animate__delay-1s">
+                <div class="d-inline-flex align-items-center gap-2 bg-white text-dark px-3 py-2 rounded-pill shadow-sm">
+                  <i class="bi bi-shield-check text-success"></i>
+                  <small>Kimliğin güvende</small>
+                </div>
+                <h2 class="fw-bold mt-4">"Bu kahve makinesini herkes soruyordu, deneyimimi paylaştım, şimdi sorular bana geliyor."</h2>
+                <p class="lead opacity-75">Güven veren deneyimler paylaş, benzer sorulara anında yanıt ver ve topluluğun yönünü değiştir.</p>
+                <div class="d-flex align-items-center gap-3 mt-4">
+                  <div>
+                    <div class="d-flex align-items-center gap-3">
+                      <img class="rounded-circle border border-2 border-light" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80" alt="Profil" width="56" height="56">
+                      <div>
+                        <p class="mb-0 fw-semibold">Merve K.</p>
+                        <small>Topluluk uzmanı</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bg-white text-dark rounded-4 p-3 shadow-sm">
+                    <p class="text-muted small mb-2">Puanın</p>
+                    <div class="fw-bold fs-5 text-center text-success"><i class="bi bi-stars text-warning me-1"></i>4.9</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="py-5" id="neden">
+      <div class="container px-4">
+        <div class="text-center">
+          <span class="badge rounded-pill bg-white text-dark shadow-sm mb-3 px-3 py-2"><i class="bi bi-people me-2 text-success"></i>Topluluğun gücü</span>
+          <h2 class="section-title">Neden NeredenAldım?</h2>
+          <p class="section-subtitle">Her deneyimin gerçek insanlar tarafından, gerçek fotoğraflarla paylaşıldığı güvenilir bir platform. Sadece ürün değil, deneyimin ruhunu paylaşıyoruz.</p>
+        </div>
+        <div class="row g-4 mt-1">
+          <div class="col-md-6 col-xl-3">
+            <div class="feature-card animate__animated animate__fadeInUp">
+              <span class="feature-icon palette-primary"><i class="bi bi-camera-fill"></i></span>
+              <h5 class="fw-bold mt-3">Fotoğraflı doğrulama</h5>
+              <p class="text-muted mb-0">Ürünlerini gerçek fotoğraflarla paylaş, sahte yorumlara yer vermeden topluluğa ışık tut.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="feature-card animate__animated animate__fadeInUp animate__delay-1s">
+              <span class="feature-icon palette-accent"><i class="bi bi-chat-dots-fill"></i></span>
+              <h5 class="fw-bold mt-3">Soru &amp; cevap</h5>
+              <p class="text-muted mb-0">Ziyaretçiler merak ettiklerini sorar, deneyimi yaşayan kişiler doğrudan yanıtlar.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="feature-card animate__animated animate__fadeInUp animate__delay-2s">
+              <span class="feature-icon palette-amber"><i class="bi bi-graph-up-arrow"></i></span>
+              <h5 class="fw-bold mt-3">Puanlama sistemi</h5>
+              <p class="text-muted mb-0">Detaylı puanlama ile ürünlerin artılarını, eksilerini şeffaf şekilde görün.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="feature-card animate__animated animate__fadeInUp animate__delay-3s">
+              <span class="feature-icon palette-green"><i class="bi bi-award-fill"></i></span>
+              <h5 class="fw-bold mt-3">Topluluk ödülleri</h5>
+              <p class="text-muted mb-0">Sürekli paylaşım yapan üyeler özel rozete ve markalarla işbirliği fırsatına sahip olur.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="adimlar">
+      <div class="container px-4">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-5">
+            <h2 class="section-title">3 adımda deneyimini paylaş</h2>
+            <p class="text-muted">Fotoğraf yükle, deneyimini puanla ve topluluğa sun. Her detayın başka birinin satın alma kararını etkileyebilir.</p>
+            <div class="d-flex flex-column gap-4 mt-4">
+              <div class="step-card">
+                <div class="d-flex gap-3">
+                  <span class="step-number">1</span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Ürünü yükle ve doğrula</h6>
+                    <p class="text-muted mb-0">Faturayı fotoğraflayıp sisteme yükle, doğrulama ekibimiz ürünü onaylasın.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="d-flex gap-3">
+                  <span class="step-number">2</span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Deneyimini detaylandır</h6>
+                    <p class="text-muted mb-0">Kullanım süren, artıları/eksileri, fiyat bilgisi ve puanlamanı ekle.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="step-card">
+                <div class="d-flex gap-3">
+                  <span class="step-number">3</span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Toplulukla etkileşim</h6>
+                    <p class="text-muted mb-0">Ziyaretçilerin sorularını uygulamadan yanıtla, güven puanını yükselt.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="row g-4">
+              <div class="col-sm-6">
+                <div class="experience-card">
+                  <img class="experience-image" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" alt="Kulaklık">
+                  <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge badge-light">Teknoloji</span>
+                      <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.8</span>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Noise Cancelling Kulaklık</h5>
+                    <p class="text-muted small mb-3">"İşe gidiş gelişlerimde aktif gürültü engelleme sayesinde dünyadan izole oluyorum."</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2">
+                        <img class="rounded-circle" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" alt="Avatar" width="40" height="40">
+                        <div>
+                          <small class="fw-semibold">Barış T.</small>
+                          <small class="text-muted d-block">12 yanıt</small>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary">Sor</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="experience-card">
+                  <img class="experience-image" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=800&q=80" alt="Kahve makinesi">
+                  <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge badge-light">Mutfak</span>
+                      <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.6</span>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Tam otomatik kahve makinesi</h5>
+                    <p class="text-muted small mb-3">"Evde barista standartlarında kahve hazırlıyorum. Bakımı için sorularınıza açığım."</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2">
+                        <img class="rounded-circle" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" alt="Avatar" width="40" height="40">
+                        <div>
+                          <small class="fw-semibold">Seda L.</small>
+                          <small class="text-muted d-block">8 yanıt</small>
+                        </div>
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary">Sor</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="experience-card">
+                  <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="badge badge-light">Yaşam</span>
+                      <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>5.0</span>
+                    </div>
+                    <h5 class="fw-semibold mb-2">Akıllı hava temizleyici deneyimi</h5>
+                    <p class="text-muted mb-4">"Alerjik bünyem için aldığım hava temizleyici ile ilk haftadan itibaren evdeki hava kalitesinin arttığını hissettim. Telefon uygulaması üzerinden filtre takibini yapmak çok kolay."</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2">
+                        <img class="rounded-circle" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Avatar" width="44" height="44">
+                        <div>
+                          <small class="fw-semibold">Selin A.</small>
+                          <small class="text-muted d-block">"İçimi rahatlattı"</small>
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-clock text-muted"></i>
+                        <small class="text-muted">2 saat önce</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-white" id="trend">
+      <div class="container px-4">
+        <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3 mb-4">
+          <div>
+            <h2 class="section-title">Toplulukta trend olan deneyimler</h2>
+            <p class="text-muted mb-0">Sezonun en çok konuşulan alışverişlerinden ilham al.</p>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-primary btn-sm"><i class="bi bi-filter me-1"></i>Filtrele</button>
+            <button class="btn btn-outline-primary btn-sm"><i class="bi bi-sliders2 me-1"></i>Kategoriler</button>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-3">
+            <div class="experience-card h-100">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Robot süpürge">
+              <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge badge-light">Akıllı Ev</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.7</span>
+                </div>
+                <h6 class="fw-semibold">Robot Süpürge</h6>
+                <p class="text-muted small">"Günlük rutinden beni kurtardı. Halılarda performansı harika."</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="experience-card h-100">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=800&q=80" alt="Akıllı saat">
+              <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge badge-light">Sağlık</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.9</span>
+                </div>
+                <h6 class="fw-semibold">Akıllı Saat</h6>
+                <p class="text-muted small">"Uyku takibi verileri sayesinde kendimi daha iyi tanıyorum."</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="experience-card h-100">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=800&q=80" alt="Kahve makinesi">
+              <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge badge-light">Mutfak</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.6</span>
+                </div>
+                <h6 class="fw-semibold">Espresso Makinesi</h6>
+                <p class="text-muted small">"Süt köpürtücüsü barista standardında."</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="experience-card h-100">
+              <img class="experience-image" src="https://images.unsplash.com/photo-1518540632084-3b80cd1c1e5b?auto=format&fit=crop&w=800&q=80" alt="Bisiklet">
+              <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge badge-light">Aktif Yaşam</span>
+                  <span class="rating-pill"><i class="bi bi-star-fill text-warning"></i>4.8</span>
+                </div>
+                <h6 class="fw-semibold">Karbon Yol Bisikleti</h6>
+                <p class="text-muted small">"Hafifliği ve aerodinamiği ile şehirde süzülmek gibi."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="paylas">
+      <div class="container px-4">
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="upload-card text-white h-100">
+              <div class="d-inline-flex align-items-center gap-2 bg-white text-dark px-3 py-2 rounded-pill shadow-sm">
+                <i class="bi bi-lightning-charge-fill text-warning"></i>
+                <small>İlk paylaşımına özel sürpriz</small>
+              </div>
+              <h2 class="fw-bold mt-4">Deneyimini şimdi yükle, toplulukla bağ kur.</h2>
+              <p class="lead opacity-75">Fotoğraflarını sürükle bırak, detayları ekle ve dakikalar içinde binlerce kişiye ulaş.</p>
+              <ul class="list-unstyled d-flex flex-column gap-3 mt-4">
+                <li class="d-flex gap-3 align-items-start">
+                  <span class="d-inline-flex palette-amber text-dark rounded-3 p-2"><i class="bi bi-upload"></i></span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Kolay yükleme</h6>
+                    <p class="mb-0">Fotoğraflarını sürükleyip bırakabilir veya kamera ile çekebilirsin.</p>
+                  </div>
+                </li>
+                <li class="d-flex gap-3 align-items-start">
+                  <span class="d-inline-flex palette-accent rounded-3 p-2"><i class="bi bi-chat-heart"></i></span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Sevgi kazan</h6>
+                    <p class="mb-0">Topluluk etkileşimleri puanına yansır, özel rozetler kazanırsın.</p>
+                  </div>
+                </li>
+                <li class="d-flex gap-3 align-items-start">
+                  <span class="d-inline-flex palette-green rounded-3 p-2"><i class="bi bi-badge-ad"></i></span>
+                  <div>
+                    <h6 class="fw-semibold mb-1">Markalarla buluş</h6>
+                    <p class="mb-0">Popüler deneyimler sponsorlu içerik fırsatlarına açılır.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="bg-white rounded-4 p-4 p-lg-5 shadow-lg">
+              <h4 class="fw-bold mb-3">Paylaşım formu</h4>
+              <p class="text-muted mb-4">Fotoğraflarını ekle, deneyimini özetle ve puanla. Topluluk seni bekliyor!</p>
+              <form class="needs-validation" novalidate>
+                <div class="mb-3">
+                  <label for="productName" class="form-label fw-semibold">Ürün adı</label>
+                  <input type="text" class="form-control" id="productName" placeholder="Örn. Dyson V15 Süpürge" required>
+                  <div class="invalid-feedback">Lütfen ürün adını gir.</div>
+                </div>
+                <div class="row g-3">
+                  <div class="col-sm-6">
+                    <label for="category" class="form-label fw-semibold">Kategori</label>
+                    <select class="form-select" id="category" required>
+                      <option value="" selected disabled>Kategori seç</option>
+                      <option>Teknoloji</option>
+                      <option>Mutfak</option>
+                      <option>Yaşam</option>
+                      <option>Aktif Yaşam</option>
+                      <option>Moda</option>
+                    </select>
+                    <div class="invalid-feedback">Kategori seç.</div>
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="rating" class="form-label fw-semibold">Puan</label>
+                    <input type="range" class="form-range" min="1" max="5" step="0.5" id="rating">
+                    <div class="d-flex justify-content-between small text-muted">
+                      <span>1</span><span>5</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-floating mt-3">
+                  <textarea class="form-control" placeholder="Deneyimini yaz" id="experience" style="height: 140px" required></textarea>
+                  <label for="experience">Deneyimini anlat</label>
+                  <div class="invalid-feedback">Lütfen deneyimini paylaş.</div>
+                </div>
+                <div class="mt-3">
+                  <label for="photos" class="form-label fw-semibold">Fotoğraflar</label>
+                  <input class="form-control" type="file" id="photos" multiple accept="image/*">
+                  <small class="text-muted">En az 2, en fazla 8 fotoğraf yükle.</small>
+                </div>
+                <div class="form-check mt-4">
+                  <input class="form-check-input" type="checkbox" value="" id="privacy" required>
+                  <label class="form-check-label" for="privacy">
+                    Topluluk kurallarını okudum, onaylıyorum.
+                  </label>
+                  <div class="invalid-feedback">Paylaşmadan önce onaylamalısın.</div>
+                </div>
+                <button class="btn btn-primary w-100 mt-4" type="submit">Deneyimi paylaş</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-white">
+      <div class="container px-4">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Topluluk ne diyor?</h2>
+          <p class="section-subtitle">NeredenAldım, alışveriş deneyimini paylaşanların güvenilir buluşma noktası.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center gap-3">
+                <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=120&q=80" alt="Avatar">
+                <div>
+                  <h6 class="fw-semibold mb-0">Merve K.</h6>
+                  <small class="text-muted">Güvenilir deneyim uzmanı</small>
+                </div>
+              </div>
+              <p class="mt-3 text-muted">"Ürünlerin gerçek kullanıcı yorumlarını okumak istiyorsanız doğru yerdesiniz. NeredenAldım sayesinde yeni ürünler keşfettim ve sorularım anında cevaplandı."</p>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-heart-fill text-danger"></i>
+                <small class="text-muted">1.2K beğeni</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center gap-3">
+                <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=120&q=80" alt="Avatar">
+                <div>
+                  <h6 class="fw-semibold mb-0">Barış T.</h6>
+                  <small class="text-muted">Tech influencer</small>
+                </div>
+              </div>
+              <p class="mt-3 text-muted">"Deneyim paylaşımı yaparken fotoğraf ve video eklemek çok pratik. Ziyaretçilerle sorunsuz iletişim kuruyorum, güven puanım sürekli artıyor."</p>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-chat-left-dots-fill text-primary"></i>
+                <small class="text-muted">37 soru yanıtladı</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4">
+            <div class="testimonial-card">
+              <div class="d-flex align-items-center gap-3">
+                <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" alt="Avatar">
+                <div>
+                  <h6 class="fw-semibold mb-0">Seda L.</h6>
+                  <small class="text-muted">Kahve sever</small>
+                </div>
+              </div>
+              <p class="mt-3 text-muted">"İlk paylaşımımda topluluğun ilgisi beni şaşırttı. NeredenAldım sayesinde kahve makinemi daha bilinçli seçtim."</p>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-award-fill text-success"></i>
+                <small class="text-muted">Topluluk lideri</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5" id="sss">
+      <div class="container px-4">
+        <div class="row g-4">
+          <div class="col-lg-5">
+            <h2 class="section-title">Sık sorulan sorular</h2>
+            <p class="text-muted">NeredenAldım topluluğuna katılmadan önce aklına takılabilecek soruları yanıtladık. Daha fazlası için canlı destek ekibimizle görüşebilirsin.</p>
+            <div class="d-flex align-items-center gap-3 mt-4">
+              <div class="d-inline-flex palette-primary text-white rounded-3 p-3">
+                <i class="bi bi-headset fs-4"></i>
+              </div>
+              <div>
+                <p class="mb-0 fw-semibold">Canlı destek</p>
+                <small class="text-muted">Hafta içi 09:00-22:00 arası</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="accordion" id="faqAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq1">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                    Deneyim paylaşmak ücretli mi?
+                  </button>
+                </h2>
+                <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Hayır, deneyim paylaşmak tamamen ücretsiz. Sadece topluluk kurallarına uygun, gerçek deneyimler kabul edilir.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq2">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                    Fotoğraflarım nasıl doğrulanıyor?
+                  </button>
+                </h2>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Yapay zekâ destekli görsel doğrulama ve moderatör ekibimiz sayesinde sahte içerik tespit edilerek topluluk güvenliği sağlanır.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq3">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                    Kullanıcılarla nasıl iletişim kurarım?
+                  </button>
+                </h2>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Deneyimin altına gelen soruları uygulama içi sohbetten yanıtlayabilir, favori cevaplarını öne çıkarabilirsin.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="faq4">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                    Güven puanı nedir?
+                  </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body text-muted">
+                    Güven puanı, deneyimlerinin doğruluğu, yanıtların hızı ve topluluk etkileşimlerine göre hesaplanır. Puanın arttıkça toplulukta öne çıkarsın.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-white" id="indir">
+      <div class="container px-4">
+        <div class="cta-card text-center text-lg-start">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <h2 class="fw-bold">NeredenAldım uygulaması çok yakında mağazalarda!</h2>
+              <p class="mb-0 opacity-75">Şimdi kayıt ol, beta sürümüne erken erişim kazan. PWA desteğiyle telefonuna kur, alışveriş deneyimini her yerde paylaş.</p>
+            </div>
+            <div class="col-lg-5 text-lg-end">
+              <div class="d-flex flex-column flex-sm-row justify-content-end gap-3">
+                <a href="#" class="btn btn-outline-light px-4 py-3"><i class="bi bi-apple me-2"></i>App Store</a>
+                <a href="#" class="btn btn-outline-light px-4 py-3"><i class="bi bi-google-play me-2"></i>Google Play</a>
+                <a href="#" class="btn btn-outline-light px-4 py-3"><i class="bi bi-browser-chrome me-2"></i>PWA Kur</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="pt-5 pb-4">
+      <div class="container px-4">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="d-inline-flex align-items-center justify-content-center rounded-circle p-2 palette-primary" style="width: 44px; height: 44px;">
+                <i class="bi bi-compass"></i>
+              </span>
+              <span class="brand-text text-white">nereden<span class="brand-dot">.</span>aldım</span>
+            </div>
+            <p class="small mb-3">NeredenAldım topluluğu, alışveriş deneyimlerini güvenle paylaşıp soru cevaplayabileceğin yeni nesil sosyal platform.</p>
+            <div class="d-flex gap-3">
+              <a class="text-white-50" href="#"><i class="bi bi-instagram"></i></a>
+              <a class="text-white-50" href="#"><i class="bi bi-twitter-x"></i></a>
+              <a class="text-white-50" href="#"><i class="bi bi-youtube"></i></a>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h6 class="text-white fw-semibold mb-3">Keşfet</h6>
+            <ul class="list-unstyled text-white-50 d-grid gap-2">
+              <li><a class="text-white-50 text-decoration-none" href="#trend">Trend deneyimler</a></li>
+              <li><a class="text-white-50 text-decoration-none" href="#paylas">Deneyim paylaş</a></li>
+              <li><a class="text-white-50 text-decoration-none" href="#sss">Yardım merkezi</a></li>
+              <li><a class="text-white-50 text-decoration-none" href="#indir">Uygulama</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6 class="text-white fw-semibold mb-3">Bültenimize katıl</h6>
+            <p class="small text-white-50">Yeni kampanyalardan ve topluluk etkinliklerinden ilk sen haberdar ol.</p>
+            <form class="d-flex gap-2">
+              <input type="email" class="form-control" placeholder="E-posta adresin">
+              <button class="btn btn-primary" type="submit"><i class="bi bi-send"></i></button>
+            </form>
+          </div>
+        </div>
+        <hr class="border-light border-opacity-10 my-4">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-white-50 gap-2">
+          <small>© 2024 NeredenAldım. Tüm hakları saklıdır.</small>
+          <div class="d-flex gap-3 small">
+            <a class="text-white-50 text-decoration-none" href="#">Gizlilik</a>
+            <a class="text-white-50 text-decoration-none" href="#">Kullanım Koşulları</a>
+            <a class="text-white-50 text-decoration-none" href="#">Çerez Politikası</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (() => {
+      const forms = document.querySelectorAll('.needs-validation');
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
+</body>
+</html>
