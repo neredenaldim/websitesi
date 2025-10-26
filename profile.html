@@ -93,6 +93,32 @@
             gap: 1.25rem;
         }
 
+        .mobile-profile-card {
+            display: none;
+            background: linear-gradient(180deg, rgba(0, 146, 159, 0.08), rgba(0, 123, 141, 0.12));
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.75rem;
+            box-shadow: inset 0 0 0 1px rgba(0, 146, 159, 0.12);
+            text-align: center;
+        }
+
+        .mobile-profile-card .profile-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .mobile-profile-card .stats {
+            display: flex;
+            justify-content: space-around;
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .mobile-profile-card .stats div {
+            flex: 1;
+        }
+
         .avatar {
             width: 96px;
             height: 96px;
@@ -387,6 +413,10 @@
                 background: #fff;
             }
 
+            .mobile-profile-card {
+                display: block;
+            }
+
             .mobile-navbar {
                 display: block;
             }
@@ -409,6 +439,15 @@
 
             .info-card h3 {
                 font-size: 1.6rem;
+            }
+
+            .mobile-profile-card .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mobile-profile-card .stats div {
+                width: 100%;
             }
         }
     </style>
@@ -477,6 +516,32 @@
             </div>
         </aside>
         <main class="app-content">
+            <div class="mobile-profile-card animate__animated animate__fadeInDown">
+                <div class="d-flex flex-column align-items-center gap-3">
+                    <div class="avatar">
+                        AS
+                        <span class="status-dot"></span>
+                    </div>
+                    <div>
+                        <div class="profile-name">Ayşe Soyer</div>
+                        <div class="profile-meta">Ürün Tasarımcısı @Socialia</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div>
+                        <div class="fw-bold fs-5">1.2K</div>
+                        <small class="text-muted">Takipçi</small>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-5">324</div>
+                        <small class="text-muted">Takip</small>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-5">86</div>
+                        <small class="text-muted">Gönderi</small>
+                    </div>
+                </div>
+            </div>
             <header class="app-header">
                 <div>
                     <h1 class="h3 fw-bold mb-1">Profil Kontrol Merkezi</h1>
