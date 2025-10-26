@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Socialia - Profilim</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-cxP6H8u2RkKJQ0S9z35JtIhXCTITVEWilQoNqT9XyM54q9WlH0I1GtIsfRSAxEPPYUajF2/MEGL3+rXhN3k1hA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --brand-primary: #00929f;
+            --brand-primary-dark: #007b8d;
+            --brand-accent: #ef4d3e;
+            --brand-accent-dark: #ef1a26;
+            --brand-warm: #fbb019;
+            --brand-warm-dark: #f4831c;
+            --brand-success: #b4d036;
+            --brand-success-dark: #51b749;
+            --bg-soft: #f7f9fb;
+            --text-dark: #1f2d3d;
+            --text-muted: #6c7a89;
+            --card-shadow: 0 24px 48px rgba(0, 146, 159, 0.12);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-soft);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            padding: 1.5rem;
+        }
+
+        .app-shell {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: var(--card-shadow);
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            overflow: hidden;
+        }
+
+        .app-sidebar {
+            background: linear-gradient(180deg, rgba(0, 146, 159, 0.08), rgba(0, 123, 141, 0.18));
+            padding: 2rem 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .brand span {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.02em;
+            color: var(--brand-primary-dark);
+        }
+
+        .profile-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: inset 0 0 0 1px rgba(0, 146, 159, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1.25rem;
+        }
+
+        .mobile-profile-card {
+            display: none;
+            background: linear-gradient(180deg, rgba(0, 146, 159, 0.08), rgba(0, 123, 141, 0.12));
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1.75rem;
+            box-shadow: inset 0 0 0 1px rgba(0, 146, 159, 0.12);
+            text-align: center;
+        }
+
+        .mobile-profile-card .profile-meta {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .mobile-profile-card .stats {
+            display: flex;
+            justify-content: space-around;
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .mobile-profile-card .stats div {
+            flex: 1;
+        }
+
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-dark));
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.75rem;
+            position: relative;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--brand-success-dark), var(--brand-success));
+            border: 3px solid #fff;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .profile-role {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 99px;
+            background: rgba(0, 146, 159, 0.12);
+        }
+
+        .progress-bar {
+            border-radius: 99px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+        }
+
+        .menu-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .nav-pills .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            border-radius: 14px;
+            padding: 0.85rem 1rem;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-pills .nav-link .bi {
+            font-size: 1.15rem;
+        }
+
+        .nav-pills .nav-link.active,
+        .nav-pills .nav-link:hover {
+            background: rgba(0, 146, 159, 0.1);
+            color: var(--brand-primary-dark);
+            transform: translateX(6px);
+        }
+
+        .app-content {
+            padding: 2rem 2.5rem;
+            background: linear-gradient(180deg, #ffffff 0%, rgba(247, 249, 251, 0.9) 100%);
+        }
+
+        .app-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-action {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn-brand {
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.6rem 1.4rem;
+            box-shadow: 0 14px 32px rgba(0, 146, 159, 0.26);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-brand:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px rgba(0, 123, 141, 0.35);
+        }
+
+        .search-input {
+            background: rgba(0, 146, 159, 0.08);
+            border: none;
+            border-radius: 14px;
+            padding: 0.65rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .search-input input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-title h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .section-title a {
+            color: var(--brand-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .card-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .info-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 1.5rem;
+            box-shadow: 0 18px 32px rgba(15, 23, 42, 0.06);
+            border: 1px solid rgba(0, 146, 159, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        .info-card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--brand-primary-dark);
+        }
+
+        .info-card p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+
+        .activity-timeline {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .timeline-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-size: 1.25rem;
+        }
+
+        .timeline-icon.following {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+        }
+
+        .timeline-icon.like {
+            background: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-dark));
+        }
+
+        .timeline-icon.comment {
+            background: linear-gradient(135deg, var(--brand-warm-dark), var(--brand-warm));
+        }
+
+        .timeline-icon.share {
+            background: linear-gradient(135deg, var(--brand-success-dark), var(--brand-success));
+        }
+
+        .timeline-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .timeline-content span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .mobile-navbar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 -12px 24px rgba(15, 23, 42, 0.08);
+            padding: 0.75rem 1.5rem calc(env(safe-area-inset-bottom) + 0.75rem);
+            z-index: 999;
+        }
+
+        .mobile-navbar .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .mobile-navbar .nav-link.active {
+            color: var(--brand-primary);
+        }
+
+        @media (max-width: 1200px) {
+            body {
+                padding: 1rem;
+            }
+
+            .app-shell {
+                grid-template-columns: 280px 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            body {
+                padding: 0;
+                background: #fff;
+            }
+
+            .app-shell {
+                border-radius: 0;
+                grid-template-columns: 1fr;
+                box-shadow: none;
+                max-width: 100%;
+                min-height: 100vh;
+            }
+
+            .app-sidebar {
+                display: none;
+            }
+
+            .app-content {
+                padding: 1.75rem 1.25rem 5.5rem;
+                background: #fff;
+            }
+
+            .mobile-profile-card {
+                display: block;
+            }
+
+            .mobile-navbar {
+                display: block;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .quick-action {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .info-card h3 {
+                font-size: 1.6rem;
+            }
+
+            .mobile-profile-card .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mobile-profile-card .stats div {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-shell animate__animated animate__fadeIn">
+        <aside class="app-sidebar">
+            <div class="brand">
+                <div class="brand-logo animate__animated animate__fadeInDown animate__delay-1s">S</div>
+                <span>Socialia</span>
+            </div>
+
+            <div class="profile-card animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="avatar">
+                    AS
+                    <span class="status-dot"></span>
+                </div>
+                <div>
+                    <div class="profile-name">Ayşe Soyer</div>
+                    <div class="profile-role">Ürün Tasarımcısı @Socialia</div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="text-muted small">Profil Tamamlandı</span>
+                        <span class="fw-semibold">82%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 82%" aria-valuenow="82" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="d-flex gap-3">
+                    <div class="text-center">
+                        <div class="fw-bold">1.2K</div>
+                        <small class="text-muted">Takipçi</small>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">324</div>
+                        <small class="text-muted">Takip</small>
+                    </div>
+                    <div class="text-center">
+                        <div class="fw-bold">86</div>
+                        <small class="text-muted">Gönderi</small>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="menu-title mb-3">Menü</div>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item"><a class="nav-link active" href="#paylasimlar"><i class="bi bi-grid"></i> Paylaşımlarım</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#takip"><i class="bi bi-people"></i> Takip Ettiklerim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#takipciler"><i class="bi bi-person-heart"></i> Takipçiler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#begeniler"><i class="bi bi-heart"></i> Beğeniler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#yorumlar"><i class="bi bi-chat-dots"></i> Yorumlar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#analiz"><i class="bi bi-graph-up"></i> Analizler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ayarlar"><i class="bi bi-gear"></i> Ayarlar</a></li>
+                </ul>
+            </div>
+
+            <div class="mt-auto">
+                <div class="menu-title mb-3">Premium</div>
+                <div class="info-card">
+                    <p class="fw-semibold mb-2">Topluluk Puanın %12 artışta! Premium ile daha fazla görünürlük kazan.</p>
+                    <button class="btn btn-sm btn-brand w-100">Premium'a Geç</button>
+                </div>
+            </div>
+        </aside>
+        <main class="app-content">
+            <div class="mobile-profile-card animate__animated animate__fadeInDown">
+                <div class="d-flex flex-column align-items-center gap-3">
+                    <div class="avatar">
+                        AS
+                        <span class="status-dot"></span>
+                    </div>
+                    <div>
+                        <div class="profile-name">Ayşe Soyer</div>
+                        <div class="profile-meta">Ürün Tasarımcısı @Socialia</div>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div>
+                        <div class="fw-bold fs-5">1.2K</div>
+                        <small class="text-muted">Takipçi</small>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-5">324</div>
+                        <small class="text-muted">Takip</small>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-5">86</div>
+                        <small class="text-muted">Gönderi</small>
+                    </div>
+                </div>
+            </div>
+            <header class="app-header">
+                <div>
+                    <h1 class="h3 fw-bold mb-1">Profil Kontrol Merkezi</h1>
+                    <p class="text-muted mb-0">Tüm etkileşimlerine ve paylaşımlarına tek yerden hakim ol.</p>
+                </div>
+                <div class="quick-action">
+                    <div class="search-input">
+                        <i class="bi bi-search text-muted"></i>
+                        <input type="search" placeholder="Aramak istediğin kişiyi yaz...">
+                    </div>
+                    <button class="btn btn-brand"><i class="bi bi-plus-lg me-2"></i>Yeni Gönderi</button>
+                </div>
+            </header>
+
+            <section class="section" id="paylasimlar">
+                <div class="section-title">
+                    <h2>Paylaşımlarım</h2>
+                    <a href="#">Tümünü Gör</a>
+                </div>
+                <div class="card-list">
+                    <article class="info-card animate__animated animate__fadeInUp">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge rounded-pill" style="background: rgba(239, 77, 62, 0.15); color: var(--brand-accent-dark);">Trend</span>
+                            <span class="text-muted small">2 saat önce</span>
+                        </div>
+                        <h3>UI Tasarım İlkeleri</h3>
+                        <p>Yeni nesil mobil deneyimler için hazırladığım kontrol listemi paylaştım.</p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <span class="text-muted small"><i class="bi bi-heart-fill text-danger me-1"></i> 238</span>
+                            <span class="text-muted small"><i class="bi bi-chat-dots-fill text-warning me-1"></i> 67</span>
+                            <span class="text-muted small"><i class="bi bi-share-fill text-success me-1"></i> 24</span>
+                        </div>
+                    </article>
+                    <article class="info-card animate__animated animate__fadeInUp animate__delay-1s">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge rounded-pill" style="background: rgba(247, 131, 28, 0.15); color: var(--brand-warm-dark);">Podcast</span>
+                            <span class="text-muted small">Dün</span>
+                        </div>
+                        <h3>Deneyim Tasarımında Empati</h3>
+                        <p>Podcast serimizin yeni bölümünde empati kurmanın önemini tartıştık.</p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <span class="text-muted small"><i class="bi bi-heart-fill text-danger me-1"></i> 196</span>
+                            <span class="text-muted small"><i class="bi bi-chat-dots-fill text-warning me-1"></i> 54</span>
+                            <span class="text-muted small"><i class="bi bi-share-fill text-success me-1"></i> 31</span>
+                        </div>
+                    </article>
+                    <article class="info-card animate__animated animate__fadeInUp animate__delay-2s">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <span class="badge rounded-pill" style="background: rgba(81, 183, 73, 0.15); color: var(--brand-success-dark);">Atölye</span>
+                            <span class="text-muted small">3 gün önce</span>
+                        </div>
+                        <h3>Design Sprint Notları</h3>
+                        <p>Geçtiğimiz haftaki sprintimizden öğrendiklerimi ve çıktıları paylaşıyorum.</p>
+                        <div class="d-flex justify-content-between mt-3">
+                            <span class="text-muted small"><i class="bi bi-heart-fill text-danger me-1"></i> 174</span>
+                            <span class="text-muted small"><i class="bi bi-chat-dots-fill text-warning me-1"></i> 42</span>
+                            <span class="text-muted small"><i class="bi bi-share-fill text-success me-1"></i> 19</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="takip">
+                <div class="section-title">
+                    <h2>Takip Ettiklerim</h2>
+                    <a href="#">Listeleri Yönet</a>
+                </div>
+                <div class="card-list">
+                    <div class="info-card">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="timeline-icon following"><i class="bi bi-broadcast"></i></div>
+                            <div>
+                                <h4>Creative Minds Studio</h4>
+                                <p>Haftalık tasarım ipuçları ve canlı yayınlar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="timeline-icon following"><i class="bi bi-lightbulb"></i></div>
+                            <div>
+                                <h4>UX Research Hub</h4>
+                                <p>Etkileşim araştırmaları ve vaka analizleri.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="timeline-icon following"><i class="bi bi-rocket"></i></div>
+                            <div>
+                                <h4>Product Launchers</h4>
+                                <p>Ürün yönetimi stratejileri ve etkinlikler.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="takipciler">
+                <div class="section-title">
+                    <h2>Takipçiler</h2>
+                    <a href="#">Tümünü Gör</a>
+                </div>
+                <div class="card-list">
+                    <div class="info-card">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="avatar" style="width:64px;height:64px;font-size:1.25rem;background:linear-gradient(135deg,var(--brand-primary),var(--brand-primary-dark));">BK</div>
+                            <div>
+                                <h4>Burak K.</h4>
+                                <p>"Paylaşımlarını okumadan güne başlamam."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="avatar" style="width:64px;height:64px;font-size:1.25rem;background:linear-gradient(135deg,var(--brand-warm-dark),var(--brand-warm));">NE</div>
+                            <div>
+                                <h4>Nazlı E.</h4>
+                                <p>"Atölyelerin sayesinde ekipte fark yaratıyoruz."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="avatar" style="width:64px;height:64px;font-size:1.25rem;background:linear-gradient(135deg,var(--brand-accent),var(--brand-accent-dark));">MS</div>
+                            <div>
+                                <h4>Mert S.</h4>
+                                <p>"UI kitlerini tüm ekiple paylaştım, harikalar."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="begeniler">
+                <div class="section-title">
+                    <h2>Beğeniler</h2>
+                    <a href="#">Keşfet</a>
+                </div>
+                <div class="activity-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon like"><i class="bi bi-heart"></i></div>
+                        <div class="timeline-content">
+                            <h4>UX Collective makalesini beğendin</h4>
+                            <span>"Mikro etkileşimler ve kullanıcı mutluluğu" - 1 saat önce</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon like"><i class="bi bi-heart"></i></div>
+                        <div class="timeline-content">
+                            <h4>Behance projesini kaydettin</h4>
+                            <span>"Sağlık uygulaması deneyimi" - Dün</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="yorumlar">
+                <div class="section-title">
+                    <h2>Yorumlar</h2>
+                    <a href="#">Yanıtları Yönet</a>
+                </div>
+                <div class="activity-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon comment"><i class="bi bi-chat-quote"></i></div>
+                        <div class="timeline-content">
+                            <h4>Selin A., "Empati bölümüne bayıldım"</h4>
+                            <span>Paylaşımlarım &bull; 4 saat önce</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon comment"><i class="bi bi-chat-quote"></i></div>
+                        <div class="timeline-content">
+                            <h4>Kaan D., "Atölyeler için bağlantıyı paylaşır mısın?"</h4>
+                            <span>Yayın &bull; 1 gün önce</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="analiz">
+                <div class="section-title">
+                    <h2>Analizler</h2>
+                    <a href="#">Detaya Git</a>
+                </div>
+                <div class="card-list">
+                    <div class="info-card">
+                        <p class="text-muted small mb-1">Etkileşim Oranı</p>
+                        <h3>%32</h3>
+                        <p>Bu hafta paylaşımların %8 daha fazla etkileşim aldı.</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="text-muted small mb-1">Topluluk Büyümesi</p>
+                        <h3>+284</h3>
+                        <p>Yeni takipçilerinin %56'sı önerilerden geldi.</p>
+                    </div>
+                    <div class="info-card">
+                        <p class="text-muted small mb-1">Geri Bildirim Skoru</p>
+                        <h3>4.8 / 5</h3>
+                        <p>Yorum yapanların çoğu içerikleri ilham verici buluyor.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="ayarlar">
+                <div class="section-title">
+                    <h2>Hızlı Ayarlar</h2>
+                </div>
+                <div class="card-list">
+                    <div class="info-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4>Profil Kartı</h4>
+                                <p>Topluluk rozetlerini profilinde göster.</p>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4>Akıllı Bildirimler</h4>
+                                <p>Önemli yorumları öne çıkar.</p>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4>Gizlilik</h4>
+                                <p>Profilini sadece davetliler görebilsin.</p>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <nav class="mobile-navbar">
+        <ul class="nav justify-content-between">
+            <li class="nav-item"><a class="nav-link active" href="#paylasimlar"><i class="bi bi-grid"></i><span>Akış</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#takip"><i class="bi bi-people"></i><span>Takip</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#begeniler"><i class="bi bi-heart"></i><span>Beğeni</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#yorumlar"><i class="bi bi-chat"></i><span>Yorum</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="#ayarlar"><i class="bi bi-gear"></i><span>Ayar</span></a></li>
+        </ul>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
